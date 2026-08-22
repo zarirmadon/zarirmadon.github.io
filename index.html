@@ -1,226 +1,358 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ZM CREATIVE. A curated portfolio of Photography, Design, and Art by Zarir Madon, Auckland.">
-    <title>ZM CREATIVE | Photography · Design · Art</title>
+    <title>Zarir Madon | ZM CREATIVE — Photography, Design & Art</title>
+    <meta name="description" content="Official portfolio of Zarir Madon. Fine art prints, photography, and graphic design. Auckland, New Zealand.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#121212',
+                        brandGray: '#767676',
+                        brandLight: '#FAFAFA'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --text-primary: #f0f0f0;
-            --text-secondary: #888888;
-            --accent: #c5a059;
-            --border: rgba(255, 255, 255, 0.08);
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Inter', sans-serif;
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            font-weight: 300;
-            line-height: 1.7;
+            background-color: #FAFAFA;
+            color: #121212;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
+
+        .gallery-image {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
         }
-        h1, h2, h3 { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.02em; }
-        .serif-italic { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
-        .sans-caps { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 5vw; }
-        
-        nav { position: fixed; top: 0; width: 100%; padding: 2.5rem 0; z-index: 100; transition: padding 0.4s var(--ease-out-expo), background 0.4s ease; }
-        nav.scrolled { padding: 1.5rem 0; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-        nav .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-sans); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; font-weight: 400; }
-        .nav-links { display: flex; gap: 3rem; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.4s var(--ease-out-expo); }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a:hover::after { width: 100%; }
 
-        #hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
-        .hero-pre { margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s var(--ease-out-expo) 0.2s forwards; }
-        .hero-title { font-size: clamp(3rem, 8vw, 7rem); line-height: 1; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s var(--ease-out-expo) 0.4s forwards; }
-        .hero-subtitle { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.5vw, 1.8rem); color: var(--text-secondary); font-style: italic; opacity: 0; animation: fadeUp 1s var(--ease-out-expo) 0.6s forwards; }
-        .scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 1s var(--ease-out-expo) 1s forwards; }
-        .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--text-secondary), transparent); animation: scrollPulse 2s infinite; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.5); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.03);
+        }
 
-        section { padding: 10rem 0; }
-        .section-header { margin-bottom: 5rem; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
-        .section-title { font-size: clamp(2rem, 4vw, 3.5rem); }
+        .filter-btn {
+            position: relative;
+            transition: color 0.3s ease;
+        }
 
-        #statement { background-color: var(--bg-secondary); }
-        .statement-text { font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.4; max-width: 900px; margin: 0 auto; text-align: center; color: var(--text-primary); }
-        .statement-text span { color: var(--accent); }
-        .statement-meta { text-align: center; margin-top: 3rem; }
+        .filter-btn.active {
+            color: #121212;
+            font-weight: 600;
+        }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
-        .gallery-item { position: relative; overflow: hidden; cursor: pointer; }
-        .gallery-item:nth-child(1) { grid-column: 1 / 8; aspect-ratio: 16/10; }
-        .gallery-item:nth-child(2) { grid-column: 8 / 13; aspect-ratio: 3/4; margin-top: 4rem; }
-        .gallery-item:nth-child(3) { grid-column: 2 / 6; aspect-ratio: 3/4; margin-top: -4rem; }
-        .gallery-item:nth-child(4) { grid-column: 6 / 13; aspect-ratio: 16/10; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) contrast(1.05); transition: transform 1.2s var(--ease-out-expo), filter 0.6s ease; }
-        .gallery-item:hover img { transform: scale(1.03); filter: grayscale(0%) contrast(1.1); }
-        .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s ease; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-        .gallery-title { font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-primary); transform: translateY(10px); transition: transform 0.4s var(--ease-out-expo); }
-        .gallery-category { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; transform: translateY(10px); transition: transform 0.4s var(--ease-out-expo) 0.05s; }
-        .gallery-item:hover .gallery-title, .gallery-item:hover .gallery-category { transform: translateY(0); }
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #121212;
+        }
 
-        #contact { text-align: center; padding: 12rem 0; }
-        .contact-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; }
-        .contact-email { font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2.5rem); color: var(--text-primary); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; transition: border-color 0.3s ease, color 0.3s ease; }
-        .contact-email:hover { border-color: var(--accent); color: var(--accent); }
-        .contact-note { margin-top: 3rem; color: var(--text-secondary); font-size: 0.9rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-
-        footer { padding: 3rem 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .footer-left, .footer-right { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); }
-
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 900px) {
-            .gallery-grid { display: flex; flex-direction: column; gap: 3rem; }
-            .gallery-item { margin-top: 0 !important; aspect-ratio: 4/5 !important; }
-            .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .nav-links { display: none; }
-            footer { flex-direction: column; gap: 1rem; text-align: center; }
+        /* Lightbox animation */
+        #lightbox {
+            transition: opacity 0.3s ease;
         }
     </style>
 </head>
-<body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="#" class="logo">ZM CREATIVE</a>
-            <div class="nav-links">
-                <a href="#statement">Vision</a>
-                <a href="#gallery">Selected Works</a>
-                <a href="#contact">Inquiries</a>
-            </div>
-        </div>
-    </nav>
+<body class="selection:bg-black selection:text-white">
 
-    <section id="hero">
-        <div class="container">
-            <p class="hero-pre sans-caps">Auckland, New Zealand</p>
-            <h1 class="hero-title">ZM CREATIVE</h1>
-            <p class="hero-subtitle">Photography · Design · Art</p>
-        </div>
-        <div class="scroll-indicator">
-            <span class="sans-caps">Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <section id="statement">
-        <div class="container">
-            <div class="reveal">
-                <p class="statement-text">
-                    "A curated exploration of light, form, and digital architecture. 
-                    Bridging the gap between <span class="serif-italic">captured reality</span> and 
-                    <span class="serif-italic">conceived design</span> for discerning spaces and commercial visionaries."
+    <!-- NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-brandLight/90 backdrop-blur-md border-b border-gray-200/60">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
+            
+            <!-- BRAND HEADER -->
+            <a href="#" class="group">
+                <h1 class="text-xl sm:text-2xl font-serif tracking-tight text-brandDark group-hover:opacity-75 transition-opacity">
+                    Zarir Madon
+                </h1>
+                <p class="text-[10px] tracking-[0.25em] text-brandGray uppercase font-medium -mt-0.5">
+                    ZM CREATIVE · Photography · Design · Art
                 </p>
-                <div class="statement-meta">
-                    <p class="sans-caps">— Zarir Madon, Creative Director</p>
+            </a>
+
+            <!-- NAV LINKS -->
+            <nav class="hidden md:flex items-center space-x-10 text-xs tracking-[0.18em] uppercase font-medium text-brandGray">
+                <a href="#portfolio" class="hover:text-brandDark transition-colors">Portfolio</a>
+                <a href="#prints" class="hover:text-brandDark transition-colors">Fine Art Prints</a>
+                <a href="#about" class="hover:text-brandDark transition-colors">About</a>
+                <a href="#contact" class="hover:text-brandDark transition-colors">Contact</a>
+            </nav>
+
+            <!-- MOBILE MENU TOGGLE -->
+            <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden text-brandDark p-2 focus:outline-none">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU DROPDOWN -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brandLight border-b border-gray-200 px-6 py-6 space-y-4 text-xs tracking-widest uppercase text-brandGray">
+            <a href="#portfolio" class="mobile-nav-link block hover:text-brandDark">Portfolio</a>
+            <a href="#prints" class="mobile-nav-link block hover:text-brandDark">Fine Art Prints</a>
+            <a href="#about" class="mobile-nav-link block hover:text-brandDark">About</a>
+            <a href="#contact" class="mobile-nav-link block hover:text-brandDark">Contact</a>
+        </div>
+    </header>
+
+
+    <!-- HERO STATEMENT -->
+    <section class="py-20 sm:py-28 px-6 lg:px-12 max-w-5xl mx-auto text-center">
+        <p class="text-xs tracking-[0.3em] uppercase text-brandGray font-medium mb-4">Auckland, New Zealand</p>
+        <h2 class="font-serif text-3xl sm:text-5xl md:text-6xl text-brandDark leading-tight font-normal">
+            Visual Arts, Fine Art Prints &amp; Graphic Design
+        </h2>
+        <p class="mt-6 text-sm sm:text-base text-brandGray font-light max-w-2xl mx-auto leading-relaxed">
+            A curated portfolio highlighting photography, visual arts, and design projects by Zarir Madon.
+        </p>
+    </section>
+
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="py-12 px-6 lg:px-12 max-w-7xl mx-auto">
+        
+        <!-- CATEGORY FILTERS -->
+        <div class="flex flex-wrap items-center justify-center gap-8 mb-16 text-xs uppercase tracking-[0.2em] text-brandGray font-medium">
+            <button onclick="filterGallery('all')" class="filter-btn active py-1" id="filter-all">All Works</button>
+            <button onclick="filterGallery('photography')" class="filter-btn py-1" id="filter-photography">Photography</button>
+            <button onclick="filterGallery('prints')" class="filter-btn py-1" id="filter-prints">Fine Art Prints</button>
+            <button onclick="filterGallery('design')" class="filter-btn py-1" id="filter-design">Design &amp; Art</button>
+        </div>
+
+        <!-- GALLERY MASONRY-STYLE GRID -->
+        <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- WORK 1: Photography -->
+            <div class="gallery-item cursor-pointer group" data-category="photography" onclick="openLightbox(0)">
+                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" alt="Landscape Photography" class="gallery-image w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Serenity in Fog</h3>
+                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Photography</span>
                 </div>
             </div>
+
+            <!-- WORK 2: Fine Art Prints -->
+            <div class="gallery-item cursor-pointer group" data-category="prints" onclick="openLightbox(1)">
+                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1000&q=80" alt="Fine Art Print" class="gallery-image w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Abstract Gold Motion</h3>
+                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Fine Art Print</span>
+                </div>
+            </div>
+
+            <!-- WORK 3: Design -->
+            <div class="gallery-item cursor-pointer group" data-category="design" onclick="openLightbox(2)">
+                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="Digital Art" class="gallery-image w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Digital Geometry Study</h3>
+                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Design &amp; Art</span>
+                </div>
+            </div>
+
+            <!-- WORK 4: Photography -->
+            <div class="gallery-item cursor-pointer group" data-category="photography" onclick="openLightbox(3)">
+                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80" alt="Urban Architecture Photography" class="gallery-image w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Light &amp; Shadow Minimal</h3>
+                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Photography</span>
+                </div>
+            </div>
+
+            <!-- WORK 5: Fine Art Prints -->
+            <div class="gallery-item cursor-pointer group" data-category="prints" onclick="openLightbox(4)">
+                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80" alt="Ocean Horizon Print" class="gallery-image w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Horizon Spectrum</h3>
+                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Fine Art Print</span>
+                </div>
+            </div>
+
+            <!-- WORK 6: Design -->
+            <div class="gallery-item cursor-pointer group" data-category="design" onclick="openLightbox(5)">
+                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1000&q=80" alt="Brand & Graphic Design" class="gallery-image w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Minimalist Brand System</h3>
+                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Design</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="gallery">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2 class="section-title">Selected Works</h2>
-                <p class="sans-caps">2024 — 2026 Collection</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1507643179173-617d654551a3?q=80&w=1200&auto=format&fit=crop" alt="Architectural Photography">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Photography</span>
-                        <h3 class="gallery-title">Structural Silence</h3>
-                    </div>
-                </div>
-                <div class="gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=800&auto=format&fit=crop" alt="Abstract Digital Art">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Digital Art</span>
-                        <h3 class="gallery-title">Chromatic Resonance</h3>
-                    </div>
-                </div>
-                <div class="gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Minimalist Design">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Design</span>
-                        <h3 class="gallery-title">Form & Void</h3>
-                    </div>
-                </div>
-                <div class="gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" alt="Fine Art Print">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Fine Art</span>
-                        <h3 class="gallery-title">Obsidian Reflections</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="contact">
-        <div class="container reveal">
-            <p class="sans-caps" style="margin-bottom: 2rem;">Gallery & Commercial Inquiries</p>
-            <h2 class="contact-title">Let us create something <br><span class="serif-italic">enduring</span>.</h2>
-            <a href="mailto:contact@zmcreative.co.nz" class="contact-email">contact@zmcreative.co.nz</a>
-            <p class="contact-note">
-                For licensing, exhibition opportunities, or commercial commissions, 
-                please include a brief overview of your project and timeline.
+    <!-- FINE ART PRINTS HIGHLIGHT -->
+    <section id="prints" class="py-20 bg-white border-y border-gray-200 mt-20">
+        <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center space-y-6">
+            <span class="text-xs uppercase tracking-[0.25em] text-brandGray font-medium">Acquisitions</span>
+            <h2 class="font-serif text-3xl sm:text-4xl text-brandDark">Fine Art Prints</h2>
+            <p class="text-sm text-brandGray font-light max-w-xl mx-auto leading-relaxed">
+                Selected artworks and photographs are available as high-quality, museum-grade archival prints. Each piece is printed with pigment inks on fine art paper for longevity and depth.
             </p>
+            <div class="pt-4">
+                <a href="#contact" class="inline-block px-8 py-3 bg-brandDark text-white text-xs font-medium uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors">
+                    Inquire About Prints
+                </a>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-left">&copy; 2026 ZM Creative. All rights reserved.</div>
-            <div class="footer-right">Auckland, Aotearoa New Zealand</div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 px-6 lg:px-12 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-5">
+                <div class="aspect-[3/4] bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Zarir Madon" class="w-full h-full object-cover filter grayscale">
+                </div>
+            </div>
+            <div class="md:col-span-7 space-y-6">
+                <span class="text-xs uppercase tracking-[0.25em] text-brandGray font-medium">About the Artist</span>
+                <h3 class="font-serif text-3xl text-brandDark">Zarir Madon</h3>
+                <p class="text-sm text-brandGray font-light leading-relaxed">
+                    Zarir Madon is a visual artist, photographer, and designer based in Auckland, New Zealand. His creative practice spans photography, fine art prints, and modern graphic design, focusing on clarity, balance, and quiet visual impact.
+                </p>
+                <p class="text-sm text-brandGray font-light leading-relaxed">
+                    Whether working on creative commissions, original artwork, or design projects, Zarir emphasizes thoughtful composition and timeless aesthetic quality.
+                </p>
+            </div>
         </div>
+    </section>
+
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-2xl mx-auto px-6 text-center space-y-8">
+            <div>
+                <span class="text-xs uppercase tracking-[0.25em] text-brandGray font-medium">Get in Touch</span>
+                <h2 class="font-serif text-3xl text-brandDark mt-2">Inquiries &amp; Collaborations</h2>
+                <p class="text-xs text-brandGray mt-2">For print orders, design work, or creative collaborations.</p>
+            </div>
+
+            <form id="contactForm" onsubmit="handleContact(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-[11px] uppercase tracking-wider text-brandGray mb-1">Name</label>
+                    <input type="text" required class="w-full px-4 py-3 text-xs bg-white border border-gray-300 focus:border-brandDark focus:outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[11px] uppercase tracking-wider text-brandGray mb-1">Email</label>
+                    <input type="email" required class="w-full px-4 py-3 text-xs bg-white border border-gray-300 focus:border-brandDark focus:outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[11px] uppercase tracking-wider text-brandGray mb-1">Message</label>
+                    <textarea rows="4" required class="w-full px-4 py-3 text-xs bg-white border border-gray-300 focus:border-brandDark focus:outline-none transition-colors"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-brandDark text-white text-xs uppercase tracking-[0.2em] font-medium hover:bg-gray-800 transition-colors">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="py-12 px-6 border-t border-gray-200 text-center text-xs text-brandGray space-y-4">
+        <div class="flex justify-center space-x-6 text-base text-brandDark">
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="hover:opacity-60 transition-opacity"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="hover:opacity-60 transition-opacity"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest" class="hover:opacity-60 transition-opacity"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+        <p>© 2026 Zarir Madon. All rights reserved.</p>
     </footer>
 
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 flex items-center justify-center p-4 sm:p-8">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-2xl hover:opacity-70 transition-opacity p-2">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-4xl w-full flex flex-col items-center">
+            <img id="lightboxImg" src="" alt="Enlarged View" class="max-h-[80vh] w-auto object-contain">
+            <div class="mt-4 text-center text-white space-y-1">
+                <h4 id="lightboxTitle" class="font-serif text-lg">Title</h4>
+                <p id="lightboxCategory" class="text-xs text-gray-400 uppercase tracking-widest">Category</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FORM CONFIRMATION MODAL -->
+    <div id="confirmModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
+        <div class="bg-white p-8 max-w-sm w-full text-center space-y-4">
+            <h3 class="font-serif text-xl text-brandDark">Thank You</h3>
+            <p class="text-xs text-brandGray">Your message has been sent. Zarir will get back to you shortly.</p>
+            <button onclick="closeConfirmModal()" class="px-6 py-2 bg-brandDark text-white text-xs uppercase tracking-wider">Close</button>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
+        const works = [
+            { id: 0, title: "Serenity in Fog", category: "Photography", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" },
+            { id: 1, title: "Abstract Gold Motion", category: "Fine Art Print", img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80" },
+            { id: 2, title: "Digital Geometry Study", category: "Design & Art", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" },
+            { id: 3, title: "Light & Shadow Minimal", category: "Photography", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" },
+            { id: 4, title: "Horizon Spectrum", category: "Fine Art Print", img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80" },
+            { id: 5, title: "Minimalist Brand System", category: "Design", img: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1200&q=80" }
+        ];
+
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            document.getElementById('filter-' + category).classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
                 }
             });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
 
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
-        });
-    </script>
-</body>
-</html>
+        function openLightbox(index) {
+            const data = works[index];
+            if (!data) return;
+
+            document.getElementById('lightboxImg').src = data.img;
+            document.getElementById('lightboxTitle').innerText = data.title;
+            document.getElementById('lightboxCategory').innerText = data.category;
+
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('hidden');
+   
