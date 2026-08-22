@@ -1,12 +1,30 @@
+media:
+  input: "images" # This is where your uploaded layout images will be saved
+
 content:
-  - name: home
-    label: "Home Page"
+  - name: settings
+    label: "Website Main Info"
     type: file
     path: "index.html"
     fields:
-      - name: title
-        label: "Page Title"
+      - name: subtitle
+        label: "Creative Director Label"
         type: string
-      - name: body
-        label: "Main Text"
+      - name: main_intro
+        label: "Intro Headline Paragraph"
         type: rich-text
+
+  - name: works
+    label: "Portfolio Pieces"
+    type: collection
+    path: "_works" # This folder stores your separate gallery markdown items
+    fields:
+      - name: title
+        label: "Project Name"
+        type: string
+      - name: category
+        label: "Creative Discipline (e.g., Photography, Art)"
+        type: string
+      - name: featured_image
+        label: "Main Showcase Image"
+        type: image
