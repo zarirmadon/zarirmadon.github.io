@@ -1,16 +1,23 @@
 ---
-title: My Custom Website
+subtitle: "Zarir Madon, Creative Director"
+main_intro: "A curated exploration of light, form, and digital architecture."
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZM Creative</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ZM CREATIVE</h1>
+        <p>{{ subtitle }}</p>
+    </header>
 
-
-&nbsp;
-
-```
-<main>
-    <!-- 2. The body field inserts text here -->
-    <article>
-        {{ body }}
-    </article>
-</main>
-```
-
+    <section class="intro">
+        <blockquote>{{ main_intro }}</blockquote>
+    </section>
+</body>
+</html>
