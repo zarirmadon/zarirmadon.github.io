@@ -1,23 +1,46 @@
 ---
-subtitle: "Zarir Madon, Creative Director"
-main_intro: "A curated exploration of light, form, and digital architecture."
+title: "ZM CREATIVE"
+subtitle: "Zarir Madon · Creative Director · Auckland, New Zealand"
+intro_heading: "Vision"
+intro_text: "Obsidian Reflections is a study on the intersection of physical forms and dynamic light."
+works_heading: "Selected Works 2024 — 2026"
+inquiries_heading: "Inquiries"
+inquiries_text: "Let us create something permanent together."
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZM Creative</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>ZM CREATIVE</h1>
-        <p>{{ subtitle }}</p>
+
+    <header class="site-header">
+        <h1>{{ title }}</h1>
+        <p class="subtitle">{{ subtitle }}</p>
     </header>
 
-    <section class="intro">
-        <blockquote>{{ main_intro }}</blockquote>
-    </section>
+    <main class="content-wrapper">
+        <section id="vision" class="content-section">
+            <h2>{{ intro_heading }}</h2>
+            <p>{{ intro_text }}</p>
+        </section>
+
+        <section id="works" class="content-section">
+            <h2>{{ works_heading }}</h2>
+            <!-- Dynamic portfolio grid items can be manually linked below -->
+            <div class="works-grid">
+                <p class="meta-tag">Void Minimalist Design Layout</p>
+            </div>
+        </section>
+
+        <section id="inquiries" class="content-section">
+            <h2>{{ inquiries_heading }}</h2>
+            <p>{{ inquiries_text }}</p>
+        </section>
+    </main>
+
 </body>
 </html>
