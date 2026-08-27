@@ -1,358 +1,716 @@
-```html
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarir Madon | ZM CREATIVE — Photography, Design & Art</title>
-    <meta name="description" content="Official portfolio of Zarir Madon. Fine art prints, photography, and graphic design. Auckland, New Zealand.">
-    
+    <title>The Digital Perspective | Contemporary Art & Visual Design</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brandDark: '#121212',
-                        brandGray: '#767676',
-                        brandLight: '#FAFAFA'
+                        brand: {
+                            50: '#f4f5f9',
+                            100: '#e9ebf2',
+                            400: '#7c8ba1',
+                            600: '#404c64',
+                            800: '#1b2234',
+                            900: '#0b0f19',
+                            accent: '#6366f1',
+                            violet: '#a855f7',
+                            emerald: '#10b981',
+                            amber: '#f59e0b'
+                        }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                        serif: ['Playfair Display', 'Georgia', 'serif']
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
         }
     </script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+        
         body {
-            background-color: #FAFAFA;
-            color: #121212;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background-color: #0b0f19;
+            color: #f4f5f9;
+            font-family: 'Inter', sans-serif;
         }
 
-        .gallery-image {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        .glass-panel {
+            background: rgba(27, 34, 52, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .gallery-item:hover .gallery-image {
-            transform: scale(1.03);
+        .glass-panel-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .filter-btn {
-            position: relative;
-            transition: color 0.3s ease;
+        .glass-panel-hover:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
         }
 
-        .filter-btn.active {
-            color: #121212;
-            font-weight: 600;
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .filter-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-color: #121212;
+        .text-gradient-accent {
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Lightbox animation */
-        #lightbox {
-            transition: opacity 0.3s ease;
+        /* Hide scrollbars for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
-<body class="selection:bg-black selection:text-white">
+<body class="antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
-    <!-- NAVIGATION -->
-    <header class="sticky top-0 z-40 bg-brandLight/90 backdrop-blur-md border-b border-gray-200/60">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
-            
-            <!-- BRAND HEADER -->
-            <a href="#" class="group">
-                <h1 class="text-xl sm:text-2xl font-serif tracking-tight text-brandDark group-hover:opacity-75 transition-opacity">
-                    Zarir Madon
-                </h1>
-                <p class="text-[10px] tracking-[0.25em] text-brandGray uppercase font-medium -mt-0.5">
-                    ZM CREATIVE · Photography · Design · Art
-                </p>
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex flex-col">
+                <span class="text-xl font-extrabold tracking-wider text-white uppercase font-mono">
+                    THE DIGITAL PERSPECTIVE
+                </span>
+                <span class="text-xs text-indigo-400 font-medium tracking-widest uppercase">
+                    Zarir Madon Studio
+                </span>
             </a>
 
-            <!-- NAV LINKS -->
-            <nav class="hidden md:flex items-center space-x-10 text-xs tracking-[0.18em] uppercase font-medium text-brandGray">
-                <a href="#portfolio" class="hover:text-brandDark transition-colors">Portfolio</a>
-                <a href="#prints" class="hover:text-brandDark transition-colors">Fine Art Prints</a>
-                <a href="#about" class="hover:text-brandDark transition-colors">About</a>
-                <a href="#contact" class="hover:text-brandDark transition-colors">Contact</a>
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#collections" class="hover:text-indigo-400 transition-colors">Collections</a>
+                <a href="#tiers" class="hover:text-indigo-400 transition-colors">Product Tiers</a>
+                <a href="#marketplaces" class="hover:text-indigo-400 transition-colors">Marketplaces</a>
+                <a href="#about" class="hover:text-indigo-400 transition-colors">Philosophy</a>
             </nav>
 
-            <!-- MOBILE MENU TOGGLE -->
-            <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden text-brandDark p-2 focus:outline-none">
-                <i class="fa-solid fa-bars text-lg"></i>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#marketplaces" class="px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90 transition-all shadow-lg shadow-indigo-500/25">
+                    Explore Storefronts
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
         </div>
 
-        <!-- MOBILE MENU DROPDOWN -->
-        <div id="mobileMenu" class="hidden md:hidden bg-brandLight border-b border-gray-200 px-6 py-6 space-y-4 text-xs tracking-widest uppercase text-brandGray">
-            <a href="#portfolio" class="mobile-nav-link block hover:text-brandDark">Portfolio</a>
-            <a href="#prints" class="mobile-nav-link block hover:text-brandDark">Fine Art Prints</a>
-            <a href="#about" class="mobile-nav-link block hover:text-brandDark">About</a>
-            <a href="#contact" class="mobile-nav-link block hover:text-brandDark">Contact</a>
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-white/10 px-4 pt-4 pb-6 space-y-3">
+            <a href="#collections" class="block py-2 text-slate-300 hover:text-white text-base">Collections</a>
+            <a href="#tiers" class="block py-2 text-slate-300 hover:text-white text-base">Product Tiers</a>
+            <a href="#marketplaces" class="block py-2 text-slate-300 hover:text-white text-base">Marketplaces</a>
+            <a href="#about" class="block py-2 text-slate-300 hover:text-white text-base">Philosophy</a>
+            <a href="#marketplaces" class="block mt-4 w-full text-center py-3 rounded-xl font-semibold bg-indigo-600 text-white">Explore Storefronts</a>
         </div>
     </header>
 
+    <main class="flex-grow pt-20">
 
-    <!-- HERO STATEMENT -->
-    <section class="py-20 sm:py-28 px-6 lg:px-12 max-w-5xl mx-auto text-center">
-        <p class="text-xs tracking-[0.3em] uppercase text-brandGray font-medium mb-4">Auckland, New Zealand</p>
-        <h2 class="font-serif text-3xl sm:text-5xl md:text-6xl text-brandDark leading-tight font-normal">
-            Visual Arts, Fine Art Prints &amp; Graphic Design
-        </h2>
-        <p class="mt-6 text-sm sm:text-base text-brandGray font-light max-w-2xl mx-auto leading-relaxed">
-            A curated portfolio highlighting photography, visual arts, and design projects by Zarir Madon.
-        </p>
-    </section>
-
-
-    <!-- PORTFOLIO SECTION -->
-    <section id="portfolio" class="py-12 px-6 lg:px-12 max-w-7xl mx-auto">
-        
-        <!-- CATEGORY FILTERS -->
-        <div class="flex flex-wrap items-center justify-center gap-8 mb-16 text-xs uppercase tracking-[0.2em] text-brandGray font-medium">
-            <button onclick="filterGallery('all')" class="filter-btn active py-1" id="filter-all">All Works</button>
-            <button onclick="filterGallery('photography')" class="filter-btn py-1" id="filter-photography">Photography</button>
-            <button onclick="filterGallery('prints')" class="filter-btn py-1" id="filter-prints">Fine Art Prints</button>
-            <button onclick="filterGallery('design')" class="filter-btn py-1" id="filter-design">Design &amp; Art</button>
-        </div>
-
-        <!-- GALLERY MASONRY-STYLE GRID -->
-        <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- WORK 1: Photography -->
-            <div class="gallery-item cursor-pointer group" data-category="photography" onclick="openLightbox(0)">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" alt="Landscape Photography" class="gallery-image w-full h-full object-cover">
+        <!-- Hero Section with Canvas Interactive Background -->
+        <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-24 px-4 sm:px-6 lg:px-8">
+            <!-- Dynamic Canvas Visual Generator -->
+            <canvas id="hero-canvas" class="absolute inset-0 w-full h-full opacity-40 pointer-events-none"></canvas>
+            
+            <div class="relative z-10 max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs text-indigo-300 font-mono mb-8 border border-indigo-500/30">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                    CONTEMPORARY ART & VISUAL DESIGN STUDIO
                 </div>
-                <div class="mt-4 flex justify-between items-baseline">
-                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Serenity in Fog</h3>
-                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Photography</span>
-                </div>
-            </div>
 
-            <!-- WORK 2: Fine Art Prints -->
-            <div class="gallery-item cursor-pointer group" data-category="prints" onclick="openLightbox(1)">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1000&q=80" alt="Fine Art Print" class="gallery-image w-full h-full object-cover">
-                </div>
-                <div class="mt-4 flex justify-between items-baseline">
-                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Abstract Gold Motion</h3>
-                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Fine Art Print</span>
-                </div>
-            </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                    The world isn't changed. <br>
+                    <span class="text-gradient">The perspective is.</span>
+                </h1>
 
-            <!-- WORK 3: Design -->
-            <div class="gallery-item cursor-pointer group" data-category="design" onclick="openLightbox(2)">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="Digital Art" class="gallery-image w-full h-full object-cover">
-                </div>
-                <div class="mt-4 flex justify-between items-baseline">
-                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Digital Geometry Study</h3>
-                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Design &amp; Art</span>
-                </div>
-            </div>
-
-            <!-- WORK 4: Photography -->
-            <div class="gallery-item cursor-pointer group" data-category="photography" onclick="openLightbox(3)">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80" alt="Urban Architecture Photography" class="gallery-image w-full h-full object-cover">
-                </div>
-                <div class="mt-4 flex justify-between items-baseline">
-                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Light &amp; Shadow Minimal</h3>
-                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Photography</span>
-                </div>
-            </div>
-
-            <!-- WORK 5: Fine Art Prints -->
-            <div class="gallery-item cursor-pointer group" data-category="prints" onclick="openLightbox(4)">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80" alt="Ocean Horizon Print" class="gallery-image w-full h-full object-cover">
-                </div>
-                <div class="mt-4 flex justify-between items-baseline">
-                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Horizon Spectrum</h3>
-                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Fine Art Print</span>
-                </div>
-            </div>
-
-            <!-- WORK 6: Design -->
-            <div class="gallery-item cursor-pointer group" data-category="design" onclick="openLightbox(5)">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1000&q=80" alt="Brand & Graphic Design" class="gallery-image w-full h-full object-cover">
-                </div>
-                <div class="mt-4 flex justify-between items-baseline">
-                    <h3 class="text-sm font-medium text-brandDark group-hover:opacity-75 transition-opacity">Minimalist Brand System</h3>
-                    <span class="text-[11px] text-brandGray uppercase tracking-wider">Design</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- FINE ART PRINTS HIGHLIGHT -->
-    <section id="prints" class="py-20 bg-white border-y border-gray-200 mt-20">
-        <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center space-y-6">
-            <span class="text-xs uppercase tracking-[0.25em] text-brandGray font-medium">Acquisitions</span>
-            <h2 class="font-serif text-3xl sm:text-4xl text-brandDark">Fine Art Prints</h2>
-            <p class="text-sm text-brandGray font-light max-w-xl mx-auto leading-relaxed">
-                Selected artworks and photographs are available as high-quality, museum-grade archival prints. Each piece is printed with pigment inks on fine art paper for longevity and depth.
-            </p>
-            <div class="pt-4">
-                <a href="#contact" class="inline-block px-8 py-3 bg-brandDark text-white text-xs font-medium uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors">
-                    Inquire About Prints
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-24 px-6 lg:px-12 max-w-4xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            <div class="md:col-span-5">
-                <div class="aspect-[3/4] bg-gray-200 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Zarir Madon" class="w-full h-full object-cover filter grayscale">
-                </div>
-            </div>
-            <div class="md:col-span-7 space-y-6">
-                <span class="text-xs uppercase tracking-[0.25em] text-brandGray font-medium">About the Artist</span>
-                <h3 class="font-serif text-3xl text-brandDark">Zarir Madon</h3>
-                <p class="text-sm text-brandGray font-light leading-relaxed">
-                    Zarir Madon is a visual artist, photographer, and designer based in Auckland, New Zealand. His creative practice spans photography, fine art prints, and modern graphic design, focusing on clarity, balance, and quiet visual impact.
+                <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                    Transforming raw photographic material, biomechanical aesthetics, and procedural algorithm art into multi-tiered physical prints, digital assets, and fine art collections.
                 </p>
-                <p class="text-sm text-brandGray font-light leading-relaxed">
-                    Whether working on creative commissions, original artwork, or design projects, Zarir emphasizes thoughtful composition and timeless aesthetic quality.
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#collections" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-xl shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5">
+                        Browse Artwork Collections
+                    </a>
+                    <a href="#marketplaces" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-slate-200 glass-panel hover:bg-white/10 transition-all">
+                        View Purchase Outlets
+                    </a>
+                </div>
+
+                <!-- Stats / Quick Info -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-white/10 text-left max-w-3xl mx-auto">
+                    <div>
+                        <div class="text-2xl font-bold font-mono text-white">08</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Curated Collections</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold font-mono text-indigo-400">4 Tiers</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Digital to Gallery</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold font-mono text-white">100%</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Original IP</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold font-mono text-indigo-400">Global</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Fulfillment & Assets</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collections Gallery Section -->
+        <section id="collections" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-xs font-mono text-indigo-400 uppercase tracking-widest mb-2">Portfolio Directory</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Curated Art Collections</h3>
+                </div>
+                <!-- Filter Buttons -->
+                <div class="mt-6 md:mt-0 flex flex-wrap gap-2 no-scrollbar overflow-x-auto pb-2">
+                    <button class="filter-btn active px-4 py-2 rounded-lg text-xs font-mono transition-all bg-indigo-600 text-white" data-filter="all">ALL</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="biomechanical">ORGANIC MACHINES</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="geometric">CHROMATIC GEOMETRY</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="generative">DIGITAL ALCHEMY</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="abstract">AOTEAROA ABSTRACTED</button>
+                </div>
+            </div>
+
+            <!-- Grid of Artworks -->
+            <div id="artworks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically populated or rendered via JS below -->
+            </div>
+        </section>
+
+        <!-- Product Tier Structure Section -->
+        <section id="tiers" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono text-indigo-400 uppercase tracking-widest mb-2">Flexible Product Matrix</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white mb-4">Four Tiers of IP Licensing & Art</h3>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    From instant high-resolution digital wallpapers and graphic asset packs to archival museum-grade physical canvas prints.
                 </p>
             </div>
-        </div>
-    </section>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Tier 1 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-slate-500">
+                    <div>
+                        <span class="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-300">LEVEL 1</span>
+                        <h4 class="text-xl font-bold text-white mt-4">Digital Downloads</h4>
+                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$5 – $35</div>
+                        <p class="text-xs text-slate-400 mb-6">Instant PNG/PDF printable wall art bundles, digital wallpapers, and designer asset packs.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
+                            <li class="flex items-center gap-2">✓ 300 DPI Multi-ratio Files</li>
+                            <li class="flex items-center gap-2">✓ Desktop & Phone 4K Packs</li>
+                            <li class="flex items-center gap-2">✓ Instant Etsy & Web Delivery</li>
+                        </ul>
+                    </div>
+                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold glass-panel hover:bg-white/10 text-white transition-colors">
+                        Shop Etsy Digital
+                    </a>
+                </div>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="py-20 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-2xl mx-auto px-6 text-center space-y-8">
-            <div>
-                <span class="text-xs uppercase tracking-[0.25em] text-brandGray font-medium">Get in Touch</span>
-                <h2 class="font-serif text-3xl text-brandDark mt-2">Inquiries &amp; Collaborations</h2>
-                <p class="text-xs text-brandGray mt-2">For print orders, design work, or creative collaborations.</p>
+                <!-- Tier 2 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-indigo-500 relative">
+                    <span class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white uppercase tracking-wider">Most Popular</span>
+                    <div>
+                        <span class="text-xs font-mono px-2 py-1 rounded bg-indigo-900/50 text-indigo-300">LEVEL 2</span>
+                        <h4 class="text-xl font-bold text-white mt-4">Physical Decor Prints</h4>
+                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$35 – $250</div>
+                        <p class="text-xs text-slate-400 mb-6">Open edition ready-to-hang museum canvas, acrylic mounts, and framed fine art prints.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
+                            <li class="flex items-center gap-2">✓ Premium Matte & Canvas</li>
+                            <li class="flex items-center gap-2">✓ Multiple Standard Sizes</li>
+                            <li class="flex items-center gap-2">✓ Global POD Shipping</li>
+                        </ul>
+                    </div>
+                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">
+                        Order Physical Decor
+                    </a>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-violet-500">
+                    <div>
+                        <span class="text-xs font-mono px-2 py-1 rounded bg-violet-900/50 text-violet-300">LEVEL 3</span>
+                        <h4 class="text-xl font-bold text-white mt-4">Limited Editions</h4>
+                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$350 – $3,000</div>
+                        <p class="text-xs text-slate-400 mb-6">Signed, numbered low-run archival prints created for high-end interior spaces and collectors.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
+                            <li class="flex items-center gap-2">✓ Certificate of Authenticity</li>
+                            <li class="flex items-center gap-2">✓ Strictly Limited (Max 25)</li>
+                            <li class="flex items-center gap-2">✓ Curated Gallery Outlets</li>
+                        </ul>
+                    </div>
+                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold glass-panel hover:bg-white/10 text-white transition-colors">
+                        View Fine Art Outlets
+                    </a>
+                </div>
+
+                <!-- Tier 4 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-amber-500">
+                    <div>
+                        <span class="text-xs font-mono px-2 py-1 rounded bg-amber-900/50 text-amber-300">LEVEL 4</span>
+                        <h4 class="text-xl font-bold text-white mt-4">Designer IP Assets</h4>
+                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$15 – $250+</div>
+                        <p class="text-xs text-slate-400 mb-6">Commercial design toolkits: seamless vector patterns, raw render layers, texture packs, and overlays.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
+                            <li class="flex items-center gap-2">✓ Commercial Licensing</li>
+                            <li class="flex items-center gap-2">✓ High-Res Textures & Vectors</li>
+                            <li class="flex items-center gap-2">✓ Ideal for Agencies/Designers</li>
+                        </ul>
+                    </div>
+                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold glass-panel hover:bg-white/10 text-white transition-colors">
+                        Visit Creative Market
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Matrix Section -->
+        <section id="marketplaces" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+            <div class="max-w-3xl mb-12">
+                <h2 class="text-xs font-mono text-indigo-400 uppercase tracking-widest mb-2">Sales Outlets</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white mb-4">Where to Buy & License</h3>
+                <p class="text-slate-400 text-sm">
+                    Select your preferred marketplace depending on whether you are acquiring decor, collecting limited editions, or licensing digital design building blocks.
+                </p>
             </div>
 
-            <form id="contactForm" onsubmit="handleContact(event)" class="space-y-4 text-left">
-                <div>
-                    <label class="block text-[11px] uppercase tracking-wider text-brandGray mb-1">Name</label>
-                    <input type="text" required class="w-full px-4 py-3 text-xs bg-white border border-gray-300 focus:border-brandDark focus:outline-none transition-colors">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Platform 1: Etsy -->
+                <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-extrabold text-white">Etsy Store</h4>
+                            <span class="text-xs font-mono px-2 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Wall Decor</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            High-volume decor hub featuring instant printable art ratios (2:3, 3:4, ISO) and select physical canvas open editions. Searchable collections tailored for interior styling.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center justify-between text-xs font-mono text-indigo-400 hover:text-indigo-300 group">
+                        <span>LAUNCH ETSY STOREFRONT</span>
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
                 </div>
-                <div>
-                    <label class="block text-[11px] uppercase tracking-wider text-brandGray mb-1">Email</label>
-                    <input type="email" required class="w-full px-4 py-3 text-xs bg-white border border-gray-300 focus:border-brandDark focus:outline-none transition-colors">
-                </div>
-                <div>
-                    <label class="block text-[11px] uppercase tracking-wider text-brandGray mb-1">Message</label>
-                    <textarea rows="4" required class="w-full px-4 py-3 text-xs bg-white border border-gray-300 focus:border-brandDark focus:outline-none transition-colors"></textarea>
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-brandDark text-white text-xs uppercase tracking-[0.2em] font-medium hover:bg-gray-800 transition-colors">
-                    Send Message
-                </button>
-            </form>
-        </div>
-    </section>
 
+                <!-- Platform 2: Creative Market -->
+                <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-extrabold text-white">Creative Market</h4>
+                            <span class="text-xs font-mono px-2 py-1 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">B2B Assets</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Built for graphic designers, web agencies, and content creators. Download raw render textures, seamless vector tile patterns, and high-res abstract backgrounds.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center justify-between text-xs font-mono text-indigo-400 hover:text-indigo-300 group">
+                        <span>EXPLORE DESIGN ASSETS</span>
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
+                </div>
 
-    <!-- FOOTER -->
-    <footer class="py-12 px-6 border-t border-gray-200 text-center text-xs text-brandGray space-y-4">
-        <div class="flex justify-center space-x-6 text-base text-brandDark">
-            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="hover:opacity-60 transition-opacity"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="hover:opacity-60 transition-opacity"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest" class="hover:opacity-60 transition-opacity"><i class="fa-brands fa-pinterest-p"></i></a>
+                <!-- Platform 3: Saatchi / Artfinder -->
+                <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-extrabold text-white">Saatchi & Artfinder</h4>
+                            <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Fine Art Layer</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Targeted at art collectors and high-spec architectural projects. Curated limited-edition works printed on archival museum paper with physical certificates.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center justify-between text-xs font-mono text-indigo-400 hover:text-indigo-300 group">
+                        <span>VIEW COLLECTOR PORTFOLIO</span>
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Manifesto / Philosophy Section -->
+        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs font-mono text-indigo-400 uppercase tracking-widest">Studio Philosophy</span>
+                    <h3 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+                        Beyond standard photographic constraints.
+                    </h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        <strong>The Digital Perspective</strong> represents a fundamental pivot from traditional photography to multi-dimensional contemporary visual design. Here, photography acts not as the final destination, but as raw foundational material.
+                    </p>
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                        Rooted in New Zealand, the studio weaves together biomechanical cybernetics, procedural algorithm experiments, bold vector chromatic geometry, and high-contrast minimalism into a unified visual universe.
+                    </p>
+                    
+                    <div class="pt-4 flex items-center gap-6 font-mono text-xs text-slate-400">
+                        <div>
+                            <div class="text-white font-bold">Zarir Madon</div>
+                            <div>Founder / Visual Creator</div>
+                        </div>
+                        <div class="h-8 w-px bg-white/10"></div>
+                        <div>
+                            <div class="text-indigo-400 font-bold">Auckland, NZ</div>
+                            <div>Studio Base</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="glass-panel p-8 rounded-3xl relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                        <h4 class="text-xs font-mono text-indigo-300 uppercase tracking-wider mb-6">Core Visual Directions</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
+                                <div class="text-sm font-bold text-white">Biomechanical & Organic Machines</div>
+                                <div class="text-xs text-slate-400 mt-1">Surreal integration of machinery aesthetics with human anatomy and industrial line work.</div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
+                                <div class="text-sm font-bold text-white">Digital Alchemy & Procedural Flow</div>
+                                <div class="text-xs text-slate-400 mt-1">Generative algorithmic patterns and anisotropic digital fluid dynamics.</div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
+                                <div class="text-sm font-bold text-white">Aotearoa Abstracted</div>
+                                <div class="text-xs text-slate-400 mt-1">Photographic deconstruction of New Zealand landscapes into minimalist forms.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Piece Details -->
+    <div id="art-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel max-w-4xl w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
+            <div id="modal-img-container" class="md:w-1/2 bg-slate-950 p-6 flex items-center justify-center min-h-[300px]">
+                <!-- Dynamic SVG preview injected here -->
+            </div>
+            <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start">
+                        <span id="modal-collection" class="text-xs font-mono text-indigo-400 uppercase">Collection</span>
+                        <button id="modal-close" class="text-slate-400 hover:text-white font-mono text-xl">✕</button>
+                    </div>
+                    <h3 id="modal-title" class="text-2xl font-bold text-white mt-2 mb-3">Artwork Title</h3>
+                    <p id="modal-desc" class="text-xs text-slate-300 leading-relaxed mb-6">Artwork description...</p>
+                    
+                    <div class="border-t border-white/10 pt-4 mb-6">
+                        <h4 class="text-xs font-mono text-slate-400 uppercase mb-3">Available Formats & Purchase</h4>
+                        <div id="modal-tiers" class="space-y-2">
+                            <!-- Tier links injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <a href="#marketplaces" class="flex-1 text-center py-3 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">
+                        View Marketplace Links
+                    </a>
+                </div>
+            </div>
         </div>
-        <p>© 2026 Zarir Madon. All rights reserved.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8 mt-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col text-center md:text-left">
+                <span class="text-lg font-bold font-mono text-white">THE DIGITAL PERSPECTIVE</span>
+                <span class="text-xs text-slate-400 mt-1">Contemporary Art & Visual Design Studio © 2026 Zarir Madon</span>
+            </div>
+
+            <div class="flex gap-6 text-xs text-slate-400 font-mono">
+                <a href="#collections" class="hover:text-indigo-400 transition-colors">Collections</a>
+                <a href="#tiers" class="hover:text-indigo-400 transition-colors">Product Matrix</a>
+                <a href="#marketplaces" class="hover:text-indigo-400 transition-colors">Outlets</a>
+                <a href="#about" class="hover:text-indigo-400 transition-colors">Philosophy</a>
+            </div>
+        </div>
     </footer>
 
-
-    <!-- LIGHTBOX MODAL -->
-    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 flex items-center justify-center p-4 sm:p-8">
-        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-2xl hover:opacity-70 transition-opacity p-2">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="max-w-4xl w-full flex flex-col items-center">
-            <img id="lightboxImg" src="" alt="Enlarged View" class="max-h-[80vh] w-auto object-contain">
-            <div class="mt-4 text-center text-white space-y-1">
-                <h4 id="lightboxTitle" class="font-serif text-lg">Title</h4>
-                <p id="lightboxCategory" class="text-xs text-gray-400 uppercase tracking-widest">Category</p>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- FORM CONFIRMATION MODAL -->
-    <div id="confirmModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
-        <div class="bg-white p-8 max-w-sm w-full text-center space-y-4">
-            <h3 class="font-serif text-xl text-brandDark">Thank You</h3>
-            <p class="text-xs text-brandGray">Your message has been sent. Zarir will get back to you shortly.</p>
-            <button onclick="closeConfirmModal()" class="px-6 py-2 bg-brandDark text-white text-xs uppercase tracking-wider">Close</button>
-        </div>
-    </div>
-
-
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JavaScript Logic -->
     <script>
-        const works = [
-            { id: 0, title: "Serenity in Fog", category: "Photography", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" },
-            { id: 1, title: "Abstract Gold Motion", category: "Fine Art Print", img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80" },
-            { id: 2, title: "Digital Geometry Study", category: "Design & Art", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" },
-            { id: 3, title: "Light & Shadow Minimal", category: "Photography", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" },
-            { id: 4, title: "Horizon Spectrum", category: "Fine Art Print", img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80" },
-            { id: 5, title: "Minimalist Brand System", category: "Design", img: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1200&q=80" }
+        // Data Store for Artworks
+        const ARTWORKS = [
+            {
+                id: '1',
+                title: 'Organic Machine No. 04',
+                collection: 'Organic Machines',
+                filterTag: 'biomechanical',
+                desc: 'A surreal convergence of biological fiber structures and precision industrial mechanical line work.',
+                accentColor: '#6366f1',
+                type: 'svg-bio'
+            },
+            {
+                id: '2',
+                title: 'Chromatic Geometry VII',
+                collection: 'Chromatic Geometry',
+                filterTag: 'geometric',
+                desc: 'Bold vector geometric construct exploring high-contrast saturated color planes and spatial rhythm.',
+                accentColor: '#a855f7',
+                type: 'svg-geo'
+            },
+            {
+                id: '3',
+                title: 'Algorithmic Alchemy',
+                collection: 'Digital Alchemy',
+                filterTag: 'generative',
+                desc: 'Procedurally generated anisotropic visual study capturing complex flow dynamics in dark light space.',
+                accentColor: '#10b981',
+                type: 'svg-gen'
+            },
+            {
+                id: '4',
+                title: 'Aotearoa Deconstructed: Piha',
+                collection: 'Aotearoa Abstracted',
+                filterTag: 'abstract',
+                desc: 'Photographic abstraction of the rugged West Coast ironsands and atmospheric coastal mist.',
+                accentColor: '#f59e0b',
+                type: 'svg-nz'
+            },
+            {
+                id: '5',
+                title: 'Retro Synth Architecture',
+                collection: 'Retro Future',
+                filterTag: 'geometric',
+                desc: '1980s synthwave inspired architectural line study with radiant ultraviolet accent planes.',
+                accentColor: '#ec4899',
+                type: 'svg-geo'
+            },
+            {
+                id: '6',
+                title: 'Monochrome Monolith',
+                collection: 'Monochrome',
+                filterTag: 'biomechanical',
+                desc: 'High-contrast minimalist black-and-white tonal exploration of shadow, structural edge, and depth.',
+                accentColor: '#94a3b8',
+                type: 'svg-bio'
+            }
         ];
 
-        function filterGallery(category) {
-            const items = document.querySelectorAll('.gallery-item');
-            const filterBtns = document.querySelectorAll('.filter-btn');
+        // SVG Visual Generator Functions to avoid missing external images
+        function generateSVGArt(type, color) {
+            if (type === 'svg-bio') {
+                return `
+                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
+                    <rect width="400" height="500" fill="#0b0f19"/>
+                    <circle cx="200" cy="250" r="140" fill="none" stroke="${color}" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.6"/>
+                    <path d="M 100 250 Q 200 100 300 250 T 100 250" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.8"/>
+                    <path d="M 150 150 C 250 200 250 300 150 350" fill="none" stroke="${color}" stroke-width="3"/>
+                    <line x1="200" y1="50" x2="200" y2="450" stroke="#334155" stroke-width="1" stroke-dasharray="2 4"/>
+                    <line x1="50" y1="250" x2="350" y2="250" stroke="#334155" stroke-width="1" stroke-dasharray="2 4"/>
+                    <circle cx="200" cy="250" r="40" fill="${color}" opacity="0.2"/>
+                    <circle cx="200" cy="250" r="8" fill="${color}"/>
+                </svg>`;
+            } else if (type === 'svg-geo') {
+                return `
+                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
+                    <rect width="400" height="500" fill="#0b0f19"/>
+                    <polygon points="200,80 340,380 60,380" fill="none" stroke="${color}" stroke-width="3"/>
+                    <polygon points="200,140 300,350 100,350" fill="${color}" opacity="0.15"/>
+                    <circle cx="200" cy="240" r="60" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+                    <line x1="60" y1="380" x2="340" y2="80" stroke="${color}" stroke-width="1.5"/>
+                    <rect x="170" y="210" width="60" height="60" fill="none" stroke="#38bdf8" stroke-width="2" transform="rotate(45 200 240)"/>
+                </svg>`;
+            } else if (type === 'svg-gen') {
+                return `
+                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
+                    <rect width="400" height="500" fill="#0b0f19"/>
+                    <path d="M 50 100 Q 200 300 350 100 T 50 400" fill="none" stroke="${color}" stroke-width="2" opacity="0.8"/>
+                    <path d="M 50 150 Q 200 350 350 150 T 50 450" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.6"/>
+                    <path d="M 50 50 Q 200 250 350 50 T 50 350" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.4"/>
+                    <circle cx="200" cy="200" r="100" fill="none" stroke="${color}" stroke-width="1" stroke-dasharray="5 5"/>
+                </svg>`;
+            } else {
+                return `
+                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
+                    <rect width="400" height="500" fill="#0b0f19"/>
+                    <path d="M 0 350 L 120 220 L 220 300 L 400 150 L 400 500 L 0 500 Z" fill="${color}" opacity="0.2"/>
+                    <path d="M 0 380 L 160 280 L 280 340 L 400 200" fill="none" stroke="${color}" stroke-width="3"/>
+                    <circle cx="300" cy="120" r="35" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                </svg>`;
+            }
+        }
 
-            filterBtns.forEach(btn => btn.classList.remove('active'));
-            document.getElementById('filter-' + category).classList.add('active');
+        // Render Artwork Cards
+        function renderArtworks(filter = 'all') {
+            const grid = document.getElementById('artworks-grid');
+            grid.innerHTML = '';
 
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+            const items = filter === 'all' 
+                ? ARTWORKS 
+                : ARTWORKS.filter(item => item.filterTag === filter);
+
+            items.forEach(art => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer flex flex-col justify-between';
+                card.onclick = () => openModal(art);
+
+                card.innerHTML = `
+                    <div class="relative h-72 bg-slate-950 p-4 flex items-center justify-center overflow-hidden">
+                        ${generateSVGArt(art.type, art.accentColor)}
+                        <span class="absolute top-4 right-4 text-[10px] font-mono px-2 py-1 rounded glass-panel text-slate-300">
+                            ${art.collection}
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white mb-2">${art.title}</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-4">${art.desc}</p>
+                        <div class="flex items-center justify-between text-xs font-mono text-indigo-400 pt-3 border-t border-white/5">
+                            <span>VIEW DETAILS</span>
+                            <span>→</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        function openLightbox(index) {
-            const data = works[index];
-            if (!data) return;
+        // Filter Functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-indigo-600', 'text-white');
+                    b.classList.add('glass-panel', 'text-slate-400');
+                });
+                e.target.classList.remove('glass-panel', 'text-slate-400');
+                e.target.classList.add('bg-indigo-600', 'text-white');
 
-            document.getElementById('lightboxImg').src = data.img;
-            document.getElementById('lightboxTitle').innerText = data.title;
-            document.getElementById('lightboxCategory').innerText = data.category;
+                renderArtworks(e.target.getAttribute('data-filter'));
+            });
+        });
 
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('hidden');
-   
+        // Modal Functionality
+        const modal = document.getElementById('art-modal');
+        const modalClose = document.getElementById('modal-close');
+
+        function openModal(art) {
+            document.getElementById('modal-title').innerText = art.title;
+            document.getElementById('modal-collection').innerText = art.collection;
+            document.getElementById('modal-desc').innerText = art.desc;
+            document.getElementById('modal-img-container').innerHTML = generateSVGArt(art.type, art.accentColor);
+
+            const tiersContainer = document.getElementById('modal-tiers');
+            tiersContainer.innerHTML = `
+                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
+                    <span class="text-slate-300 font-mono">Level 1: Printable Digital Download</span>
+                    <span class="text-indigo-400 font-bold font-mono">$15 (Etsy)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
+                    <span class="text-slate-300 font-mono">Level 2: 60x90cm Canvas Print</span>
+                    <span class="text-indigo-400 font-bold font-mono">$140 (Etsy POD)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
+                    <span class="text-slate-300 font-mono">Level 3: Limited Fine Art Print (1/15)</span>
+                    <span class="text-indigo-400 font-bold font-mono">$450 (Saatchi)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
+                    <span class="text-slate-300 font-mono">Level 4: Graphic Asset Pack</span>
+                    <span class="text-indigo-400 font-bold font-mono">$28 (Creative Market)</span>
+                </div>
+            `;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        });
+
+        // Hero Generative Canvas Animation
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8,
+                radius: Math.random() * 2 + 1
+            });
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            ctx.fillStyle = '#6366f1';
+            ctx.strokeStyle = 'rgba(99, 102, 241, 0.15)';
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 180) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // Mobile Nav toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initial Page Setup
+        renderArtworks('all');
+    </script>
+</body>
+</html>
