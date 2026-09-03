@@ -1,716 +1,332 @@
-<!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Digital Perspective | Contemporary Art & Visual Design</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f4f5f9',
-                            100: '#e9ebf2',
-                            400: '#7c8ba1',
-                            600: '#404c64',
-                            800: '#1b2234',
-                            900: '#0b0f19',
-                            accent: '#6366f1',
-                            violet: '#a855f7',
-                            emerald: '#10b981',
-                            amber: '#f59e0b'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-        
-        body {
-            background-color: #0b0f19;
-            color: #f4f5f9;
-            font-family: 'Inter', sans-serif;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Digital Perspective — Contemporary Art & Digital Design</title>
+<meta name="description" content="The Digital Perspective — contemporary art, abstract design, photography and visual experiments by Zarir Madon.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 
-        .glass-panel {
-            background: rgba(27, 34, 52, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+:root{
+  --bg:#0a0814;
+  --ink:#f7f3ec;
+  --muted:#a39fb5;
+  --p:#ff3d7f;   /* hot pink */
+  --o:#ff7a1f;   /* tangerine */
+  --y:#ffd21f;   /* electric yellow */
+  --g:#1fd9a0;   /* mint */
+  --b:#3d6bff;   /* cobalt */
+  --v:#a14bff;   /* violet */
+  --paper:#f7f3ec;
+  --line:rgba(247,243,236,.14);
+  --display:'Unbounded',system-ui,sans-serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+.serif{font-family:var(--serif);font-style:italic}
+.kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500}
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px)}
 
-        .glass-panel-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+/* noise */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
-        .glass-panel-hover:hover {
-            border-color: rgba(99, 102, 241, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
-        }
+/* svg marks */
+.spark{width:14px;height:14px;display:inline-block;vertical-align:-2px}
+.arrow{width:18px;height:18px;display:inline-block;vertical-align:-3px}
 
-        .text-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #6366f1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* nav */
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,5vw,72px);backdrop-filter:blur(18px);
+  background:rgba(10,8,20,.6);border-bottom:1px solid var(--line)}
+.logo{font-family:var(--display);font-weight:800;letter-spacing:-.04em;font-size:17px;line-height:.92;display:flex;align-items:center;gap:12px}
+.logo .dot{width:16px;height:16px;border-radius:50%;flex:none;background:conic-gradient(from 0deg,var(--p),var(--o),var(--y),var(--g),var(--b),var(--v),var(--p));animation:spin 8s linear infinite}
+.logo small{display:block;font-family:var(--sans);font-weight:400;font-size:9px;letter-spacing:.22em;color:var(--muted);margin-top:4px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.menu{display:flex;gap:30px;font-size:13px;font-weight:500;letter-spacing:.02em}
+.menu a{position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--p);transition:width .35s ease}
+.menu a:hover::after{width:100%}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:40px;font-size:12px;font-weight:600;letter-spacing:.04em;
+  background:var(--ink);color:var(--bg);transition:transform .3s,box-shadow .3s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,61,127,.4)}
+.nav-cta .dot2{width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g)}
 
-        .text-gradient-accent {
-            background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 70px);display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;
+  align-items:center;padding:6vh clamp(20px,5vw,72px) 6vh;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(135deg,#0a0814 0%,#1c0a3a 28%,#0a1850 52%,#0a262a 78%,#0a0814 100%);background-size:200% 200%;animation:gshift 22s ease-in-out infinite}
+@keyframes gshift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-copy{display:flex;flex-direction:column;justify-content:space-between;gap:34px;min-height:60vh;padding:4vh 0}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(58px,11vw,176px);line-height:.8;letter-spacing:-.05em;margin:0;max-width:850px}
+h1 .w{display:block}
+.h-pink{color:var(--p)}.h-yellow{color:var(--y)}.h-mint{color:var(--g)}
+.hero-text{max-width:470px;font-size:18px;line-height:1.55;color:#dcd6ec}
+.hero-text .serif{color:var(--y)}
+.cta{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--ink);padding:15px 22px;text-transform:uppercase;font-size:11px;letter-spacing:.15em;width:max-content;margin-top:8px;border-radius:44px;transition:transform .3s,box-shadow .3s;background:linear-gradient(100deg,var(--p),var(--o));border:none;color:#fff;font-weight:600}
+.cta:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(255,122,31,.45)}
 
-        /* Hide scrollbars for clean UI */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+/* hero art panel */
+.hero-art{position:relative;min-height:560px;overflow:hidden;border-radius:24px;background:#181818}
+.art-one{position:absolute;inset:0;background:
+radial-gradient(circle at 68% 31%,var(--y) 0 7%,transparent 7.5%),
+radial-gradient(circle at 35% 67%,var(--p) 0 13%,transparent 13.5%),
+linear-gradient(118deg,transparent 0 32%,#dedbd1 32.2% 48%,transparent 48.2%),
+linear-gradient(34deg,transparent 0 48%,var(--b) 48.2% 67%,transparent 67.2%),
+conic-gradient(from 120deg at 53% 53%,var(--paper),var(--g),#151515,var(--o),var(--paper));
+filter:saturate(1.05)}
+.art-two{position:absolute;width:42%;height:60%;right:8%;top:14%;border:1px solid rgba(255,255,255,.55);transform:rotate(9deg);background:repeating-linear-gradient(90deg,transparent 0 15px,rgba(255,255,255,.12) 16px 17px)}
+.art-label{position:absolute;bottom:22px;left:22px;color:#fff;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+
+/* marquee */
+.marquee{padding:18px 0;overflow:hidden;white-space:nowrap;
+  background:linear-gradient(90deg,var(--p),var(--v) 45%,var(--b));color:#fff}
+.marquee-track{display:inline-flex;animation:move 32s linear infinite}
+.marquee-track span{font-size:clamp(22px,3.2vw,42px);font-weight:600;letter-spacing:-.01em;padding:0 22px;display:inline-flex;align-items:center;gap:22px}
+.marquee-track .spark{color:var(--y)}
+.marquee-track em{font-family:var(--serif);font-style:italic;color:var(--y);font-weight:400}
+@keyframes move{to{transform:translateX(-50%)}}
+
+/* section */
+section{padding:9vh 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:54px}
+.sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,104px);line-height:.86;letter-spacing:-.045em;margin:0}
+.sec-head h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--g);font-size:.92em}
+.sec-head p{max-width:360px;color:var(--muted);line-height:1.55;font-size:15px}
+
+/* work grid */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.work{position:relative;min-height:460px;overflow:hidden;border-radius:22px;cursor:pointer;transition:transform .4s}
+.work:nth-child(1){grid-column:span 7}.work:nth-child(2){grid-column:span 5}
+.work:nth-child(3){grid-column:span 4}.work:nth-child(4){grid-column:span 8}
+.work-art{position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.work:hover .work-art{transform:scale(1.06)}
+.work::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(10,8,20,.7) 100%);z-index:1}
+.work-info{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;align-items:flex-end;z-index:2}
+.work-info h3{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.03em;margin:6px 0 0}
+.work-info h3 em{font-family:var(--serif);font-style:italic;font-weight:400}
+.work-info small{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ffffffd0;margin-bottom:6px;font-weight:500}
+.arrow-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;color:#0a0814;transition:transform .35s,background .35s}
+.work:hover .arrow-btn{transform:rotate(45deg) scale(1.08);background:var(--p);color:#fff}
+.arrow-btn svg{width:18px;height:18px}
+
+.w1{background:
+  radial-gradient(circle at 72% 28%,var(--y) 0 10%,transparent 10.5%),
+  radial-gradient(circle at 26% 70%,var(--p) 0 18%,transparent 18.5%),
+  linear-gradient(115deg,#1a0f2e 0 34%,var(--b) 34.5% 50%,#0a0814 50.5%),
+  conic-gradient(from 100deg at 64% 62%,var(--v),var(--p),var(--o),var(--y),var(--v))}
+.w2{background:linear-gradient(135deg,var(--g) 0 22%,#1a0f2e 22.5% 48%,var(--y) 48.5% 72%,var(--o) 72.5%)}
+.w3{background:
+  radial-gradient(circle at 38% 42%,var(--o) 0 18%,transparent 18.5%),
+  linear-gradient(58deg,#0a0814 0 42%,var(--v) 42.5% 68%,var(--p) 68.5%)}
+.w4{background:conic-gradient(from 20deg at 50% 50%,var(--b),var(--v),var(--p),var(--o),var(--y),var(--g),var(--b))}
+
+/* about */
+.about{background:var(--paper);color:#15121f;border-radius:30px;margin:6vh 0;padding:9vh clamp(24px,5vw,72px);display:grid;grid-template-columns:1fr 1fr;gap:8vw;position:relative;overflow:hidden}
+.about::after{content:"";position:absolute;width:55vw;height:55vw;right:-18vw;bottom:-18vw;border-radius:50%;
+  background:conic-gradient(from 40deg,var(--p),var(--o),var(--y),var(--g),var(--b),var(--p));opacity:.16;filter:blur(24px)}
+.about h2{font-family:var(--display);font-weight:800;font-size:clamp(52px,8vw,128px);line-height:.84;letter-spacing:-.05em;margin:0;position:relative;z-index:2}
+.about h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--p)}
+.about-copy{font-size:19px;line-height:1.55;max-width:560px;position:relative;z-index:2}
+.about-copy p{margin:0 0 18px}
+.about-copy strong{color:var(--v)}
+.line{height:1px;background:#d9d3c8;margin:35px 0}
+.stat{display:flex;justify-content:space-between;border-bottom:1px solid #d9d3c8;padding:13px 0;font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:500}
+.stat span:last-child{color:#15121f;font-weight:600}
+
+/* shop */
+.shop{background:#d9d5cc;color:#15121f;border-radius:30px;margin:6vh 0;padding:9vh clamp(24px,5vw,72px)}
+.shop .sec-head h2 em{color:var(--p)}
+.shop .sec-head p{color:#5a5650}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.shop-card{background:var(--paper);padding:30px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;border-radius:18px;transition:transform .4s,box-shadow .4s;position:relative;overflow:hidden}
+.shop-card:hover{transform:translateY(-8px);box-shadow:0 16px 36px rgba(0,0,0,.12)}
+.shop-card::before{content:"";position:absolute;left:0;top:0;width:6px;height:100%}
+.sc1::before{background:linear-gradient(var(--p),var(--v))}
+.sc2::before{background:linear-gradient(var(--b),var(--g))}
+.sc3::before{background:linear-gradient(var(--o),var(--y))}
+.shop-card h3{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.04em;margin:0;position:relative}
+.shop-card p{color:#686862;font-size:13px;line-height:1.5;margin:14px 0 0;position:relative}
+.shop-card a{font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:600;position:relative;margin-top:24px;display:inline-flex;align-items:center;gap:8px;width:max-content}
+.shop-card a svg{width:15px;height:15px}
+
+/* contact */
+.contact{position:relative;text-align:center;padding:14vh 0;overflow:hidden;border-radius:30px;
+  background:linear-gradient(125deg,var(--b),var(--v) 45%,var(--p) 78%,var(--o));color:#fff}
+.contact::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 130%,rgba(255,210,31,.35),transparent 50%)}
+.contact>*{position:relative;z-index:1}
+.contact .kicker{color:#fff;opacity:.85}
+.contact h2{font-family:var(--display);font-weight:800;font-size:clamp(48px,9vw,150px);line-height:.84;letter-spacing:-.05em;margin:24px 0 36px}
+.contact h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--y);font-size:.9em}
+.contact .cta{margin:0 auto;background:#fff;color:#15121f}
+.contact .cta:hover{box-shadow:0 12px 30px rgba(0,0,0,.3)}
+
+/* footer */
+footer{padding:60px 0 36px;border-top:1px solid var(--line)}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px}
+.foot-logo{font-family:var(--display);font-weight:900;font-size:clamp(40px,8vw,110px);letter-spacing:-.05em;line-height:.82}
+.foot-logo em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--p)}
+footer small{color:#9b96ad;line-height:1.6;font-size:12px}
+.socials{display:flex;gap:10px;margin-top:20px}
+.socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s,border-color .3s}
+.socials a:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.socials a svg{width:18px;height:18px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:800px){
+  .menu,.nav-cta .lbl{display:none}
+  .hero{grid-template-columns:1fr;padding-top:35px}
+  .hero-art{min-height:62vh}
+  .hero-copy{gap:30px}
+  .grid{gap:14px}
+  .work,.work:nth-child(n){grid-column:span 12;min-height:340px}
+  .about,.shop-grid{grid-template-columns:1fr}
+  footer{display:block}
+  .foot-logo{margin-bottom:35px}
+}
+</style>
 </head>
-<body class="antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body>
 
-    <!-- Header / Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="flex flex-col">
-                <span class="text-xl font-extrabold tracking-wider text-white uppercase font-mono">
-                    THE DIGITAL PERSPECTIVE
-                </span>
-                <span class="text-xs text-indigo-400 font-medium tracking-widest uppercase">
-                    Zarir Madon Studio
-                </span>
-            </a>
+<nav class="nav">
+  <a class="logo" href="#"><span class="dot"></span>THE DIGITAL<br>PERSPECTIVE<small>Contemporary Art · Design · Experiments</small></a>
+  <div class="menu">
+    <a href="#work">Work</a><a href="#about">About</a><a href="#shop">Shop</a><a href="#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="#contact"><span class="dot2"></span><span class="lbl">Start a project</span></a>
+</nav>
 
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                <a href="#collections" class="hover:text-indigo-400 transition-colors">Collections</a>
-                <a href="#tiers" class="hover:text-indigo-400 transition-colors">Product Tiers</a>
-                <a href="#marketplaces" class="hover:text-indigo-400 transition-colors">Marketplaces</a>
-                <a href="#about" class="hover:text-indigo-400 transition-colors">Philosophy</a>
-            </nav>
-
-            <div class="hidden md:flex items-center gap-4">
-                <a href="#marketplaces" class="px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90 transition-all shadow-lg shadow-indigo-500/25">
-                    Explore Storefronts
-                </a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none" aria-label="Toggle Menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Mobile Nav Menu -->
-        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-white/10 px-4 pt-4 pb-6 space-y-3">
-            <a href="#collections" class="block py-2 text-slate-300 hover:text-white text-base">Collections</a>
-            <a href="#tiers" class="block py-2 text-slate-300 hover:text-white text-base">Product Tiers</a>
-            <a href="#marketplaces" class="block py-2 text-slate-300 hover:text-white text-base">Marketplaces</a>
-            <a href="#about" class="block py-2 text-slate-300 hover:text-white text-base">Philosophy</a>
-            <a href="#marketplaces" class="block mt-4 w-full text-center py-3 rounded-xl font-semibold bg-indigo-600 text-white">Explore Storefronts</a>
-        </div>
-    </header>
-
-    <main class="flex-grow pt-20">
-
-        <!-- Hero Section with Canvas Interactive Background -->
-        <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-24 px-4 sm:px-6 lg:px-8">
-            <!-- Dynamic Canvas Visual Generator -->
-            <canvas id="hero-canvas" class="absolute inset-0 w-full h-full opacity-40 pointer-events-none"></canvas>
-            
-            <div class="relative z-10 max-w-4xl mx-auto text-center">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs text-indigo-300 font-mono mb-8 border border-indigo-500/30">
-                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-                    CONTEMPORARY ART & VISUAL DESIGN STUDIO
-                </div>
-
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-                    The world isn't changed. <br>
-                    <span class="text-gradient">The perspective is.</span>
-                </h1>
-
-                <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-                    Transforming raw photographic material, biomechanical aesthetics, and procedural algorithm art into multi-tiered physical prints, digital assets, and fine art collections.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#collections" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-xl shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5">
-                        Browse Artwork Collections
-                    </a>
-                    <a href="#marketplaces" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-slate-200 glass-panel hover:bg-white/10 transition-all">
-                        View Purchase Outlets
-                    </a>
-                </div>
-
-                <!-- Stats / Quick Info -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-white/10 text-left max-w-3xl mx-auto">
-                    <div>
-                        <div class="text-2xl font-bold font-mono text-white">08</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Curated Collections</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold font-mono text-indigo-400">4 Tiers</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Digital to Gallery</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold font-mono text-white">100%</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Original IP</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold font-mono text-indigo-400">Global</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Fulfillment & Assets</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Collections Gallery Section -->
-        <section id="collections" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                <div>
-                    <h2 class="text-xs font-mono text-indigo-400 uppercase tracking-widest mb-2">Portfolio Directory</h2>
-                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Curated Art Collections</h3>
-                </div>
-                <!-- Filter Buttons -->
-                <div class="mt-6 md:mt-0 flex flex-wrap gap-2 no-scrollbar overflow-x-auto pb-2">
-                    <button class="filter-btn active px-4 py-2 rounded-lg text-xs font-mono transition-all bg-indigo-600 text-white" data-filter="all">ALL</button>
-                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="biomechanical">ORGANIC MACHINES</button>
-                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="geometric">CHROMATIC GEOMETRY</button>
-                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="generative">DIGITAL ALCHEMY</button>
-                    <button class="filter-btn px-4 py-2 rounded-lg text-xs font-mono glass-panel text-slate-400 hover:text-white transition-all" data-filter="abstract">AOTEAROA ABSTRACTED</button>
-                </div>
-            </div>
-
-            <!-- Grid of Artworks -->
-            <div id="artworks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Dynamically populated or rendered via JS below -->
-            </div>
-        </section>
-
-        <!-- Product Tier Structure Section -->
-        <section id="tiers" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-mono text-indigo-400 uppercase tracking-widest mb-2">Flexible Product Matrix</h2>
-                <h3 class="text-3xl sm:text-4xl font-bold text-white mb-4">Four Tiers of IP Licensing & Art</h3>
-                <p class="text-slate-400 text-sm sm:text-base">
-                    From instant high-resolution digital wallpapers and graphic asset packs to archival museum-grade physical canvas prints.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Tier 1 -->
-                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-slate-500">
-                    <div>
-                        <span class="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-300">LEVEL 1</span>
-                        <h4 class="text-xl font-bold text-white mt-4">Digital Downloads</h4>
-                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$5 – $35</div>
-                        <p class="text-xs text-slate-400 mb-6">Instant PNG/PDF printable wall art bundles, digital wallpapers, and designer asset packs.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-                            <li class="flex items-center gap-2">✓ 300 DPI Multi-ratio Files</li>
-                            <li class="flex items-center gap-2">✓ Desktop & Phone 4K Packs</li>
-                            <li class="flex items-center gap-2">✓ Instant Etsy & Web Delivery</li>
-                        </ul>
-                    </div>
-                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold glass-panel hover:bg-white/10 text-white transition-colors">
-                        Shop Etsy Digital
-                    </a>
-                </div>
-
-                <!-- Tier 2 -->
-                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-indigo-500 relative">
-                    <span class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white uppercase tracking-wider">Most Popular</span>
-                    <div>
-                        <span class="text-xs font-mono px-2 py-1 rounded bg-indigo-900/50 text-indigo-300">LEVEL 2</span>
-                        <h4 class="text-xl font-bold text-white mt-4">Physical Decor Prints</h4>
-                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$35 – $250</div>
-                        <p class="text-xs text-slate-400 mb-6">Open edition ready-to-hang museum canvas, acrylic mounts, and framed fine art prints.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-                            <li class="flex items-center gap-2">✓ Premium Matte & Canvas</li>
-                            <li class="flex items-center gap-2">✓ Multiple Standard Sizes</li>
-                            <li class="flex items-center gap-2">✓ Global POD Shipping</li>
-                        </ul>
-                    </div>
-                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">
-                        Order Physical Decor
-                    </a>
-                </div>
-
-                <!-- Tier 3 -->
-                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-violet-500">
-                    <div>
-                        <span class="text-xs font-mono px-2 py-1 rounded bg-violet-900/50 text-violet-300">LEVEL 3</span>
-                        <h4 class="text-xl font-bold text-white mt-4">Limited Editions</h4>
-                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$350 – $3,000</div>
-                        <p class="text-xs text-slate-400 mb-6">Signed, numbered low-run archival prints created for high-end interior spaces and collectors.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-                            <li class="flex items-center gap-2">✓ Certificate of Authenticity</li>
-                            <li class="flex items-center gap-2">✓ Strictly Limited (Max 25)</li>
-                            <li class="flex items-center gap-2">✓ Curated Gallery Outlets</li>
-                        </ul>
-                    </div>
-                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold glass-panel hover:bg-white/10 text-white transition-colors">
-                        View Fine Art Outlets
-                    </a>
-                </div>
-
-                <!-- Tier 4 -->
-                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-amber-500">
-                    <div>
-                        <span class="text-xs font-mono px-2 py-1 rounded bg-amber-900/50 text-amber-300">LEVEL 4</span>
-                        <h4 class="text-xl font-bold text-white mt-4">Designer IP Assets</h4>
-                        <div class="text-2xl font-extrabold font-mono text-indigo-400 my-2">$15 – $250+</div>
-                        <p class="text-xs text-slate-400 mb-6">Commercial design toolkits: seamless vector patterns, raw render layers, texture packs, and overlays.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-                            <li class="flex items-center gap-2">✓ Commercial Licensing</li>
-                            <li class="flex items-center gap-2">✓ High-Res Textures & Vectors</li>
-                            <li class="flex items-center gap-2">✓ Ideal for Agencies/Designers</li>
-                        </ul>
-                    </div>
-                    <a href="#marketplaces" class="w-full text-center py-2.5 rounded-lg text-xs font-semibold glass-panel hover:bg-white/10 text-white transition-colors">
-                        Visit Creative Market
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Platform Matrix Section -->
-        <section id="marketplaces" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
-            <div class="max-w-3xl mb-12">
-                <h2 class="text-xs font-mono text-indigo-400 uppercase tracking-widest mb-2">Sales Outlets</h2>
-                <h3 class="text-3xl sm:text-4xl font-bold text-white mb-4">Where to Buy & License</h3>
-                <p class="text-slate-400 text-sm">
-                    Select your preferred marketplace depending on whether you are acquiring decor, collecting limited editions, or licensing digital design building blocks.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Platform 1: Etsy -->
-                <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-2xl font-extrabold text-white">Etsy Store</h4>
-                            <span class="text-xs font-mono px-2 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Wall Decor</span>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
-                            High-volume decor hub featuring instant printable art ratios (2:3, 3:4, ISO) and select physical canvas open editions. Searchable collections tailored for interior styling.
-                        </p>
-                    </div>
-                    <a href="#" class="inline-flex items-center justify-between text-xs font-mono text-indigo-400 hover:text-indigo-300 group">
-                        <span>LAUNCH ETSY STOREFRONT</span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </a>
-                </div>
-
-                <!-- Platform 2: Creative Market -->
-                <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-2xl font-extrabold text-white">Creative Market</h4>
-                            <span class="text-xs font-mono px-2 py-1 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">B2B Assets</span>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
-                            Built for graphic designers, web agencies, and content creators. Download raw render textures, seamless vector tile patterns, and high-res abstract backgrounds.
-                        </p>
-                    </div>
-                    <a href="#" class="inline-flex items-center justify-between text-xs font-mono text-indigo-400 hover:text-indigo-300 group">
-                        <span>EXPLORE DESIGN ASSETS</span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </a>
-                </div>
-
-                <!-- Platform 3: Saatchi / Artfinder -->
-                <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-2xl font-extrabold text-white">Saatchi & Artfinder</h4>
-                            <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Fine Art Layer</span>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
-                            Targeted at art collectors and high-spec architectural projects. Curated limited-edition works printed on archival museum paper with physical certificates.
-                        </p>
-                    </div>
-                    <a href="#" class="inline-flex items-center justify-between text-xs font-mono text-indigo-400 hover:text-indigo-300 group">
-                        <span>VIEW COLLECTOR PORTFOLIO</span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Brand Manifesto / Philosophy Section -->
-        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-6 space-y-6">
-                    <span class="text-xs font-mono text-indigo-400 uppercase tracking-widest">Studio Philosophy</span>
-                    <h3 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
-                        Beyond standard photographic constraints.
-                    </h3>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                        <strong>The Digital Perspective</strong> represents a fundamental pivot from traditional photography to multi-dimensional contemporary visual design. Here, photography acts not as the final destination, but as raw foundational material.
-                    </p>
-                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-                        Rooted in New Zealand, the studio weaves together biomechanical cybernetics, procedural algorithm experiments, bold vector chromatic geometry, and high-contrast minimalism into a unified visual universe.
-                    </p>
-                    
-                    <div class="pt-4 flex items-center gap-6 font-mono text-xs text-slate-400">
-                        <div>
-                            <div class="text-white font-bold">Zarir Madon</div>
-                            <div>Founder / Visual Creator</div>
-                        </div>
-                        <div class="h-8 w-px bg-white/10"></div>
-                        <div>
-                            <div class="text-indigo-400 font-bold">Auckland, NZ</div>
-                            <div>Studio Base</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-6">
-                    <div class="glass-panel p-8 rounded-3xl relative overflow-hidden">
-                        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
-                        <h4 class="text-xs font-mono text-indigo-300 uppercase tracking-wider mb-6">Core Visual Directions</h4>
-                        
-                        <div class="space-y-4">
-                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                <div class="text-sm font-bold text-white">Biomechanical & Organic Machines</div>
-                                <div class="text-xs text-slate-400 mt-1">Surreal integration of machinery aesthetics with human anatomy and industrial line work.</div>
-                            </div>
-                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                <div class="text-sm font-bold text-white">Digital Alchemy & Procedural Flow</div>
-                                <div class="text-xs text-slate-400 mt-1">Generative algorithmic patterns and anisotropic digital fluid dynamics.</div>
-                            </div>
-                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                <div class="text-sm font-bold text-white">Aotearoa Abstracted</div>
-                                <div class="text-xs text-slate-400 mt-1">Photographic deconstruction of New Zealand landscapes into minimalist forms.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Modal for Piece Details -->
-    <div id="art-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="glass-panel max-w-4xl w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
-            <div id="modal-img-container" class="md:w-1/2 bg-slate-950 p-6 flex items-center justify-center min-h-[300px]">
-                <!-- Dynamic SVG preview injected here -->
-            </div>
-            <div class="md:w-1/2 p-8 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start">
-                        <span id="modal-collection" class="text-xs font-mono text-indigo-400 uppercase">Collection</span>
-                        <button id="modal-close" class="text-slate-400 hover:text-white font-mono text-xl">✕</button>
-                    </div>
-                    <h3 id="modal-title" class="text-2xl font-bold text-white mt-2 mb-3">Artwork Title</h3>
-                    <p id="modal-desc" class="text-xs text-slate-300 leading-relaxed mb-6">Artwork description...</p>
-                    
-                    <div class="border-t border-white/10 pt-4 mb-6">
-                        <h4 class="text-xs font-mono text-slate-400 uppercase mb-3">Available Formats & Purchase</h4>
-                        <div id="modal-tiers" class="space-y-2">
-                            <!-- Tier links injected dynamically -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex gap-3">
-                    <a href="#marketplaces" class="flex-1 text-center py-3 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">
-                        View Marketplace Links
-                    </a>
-                </div>
-            </div>
-        </div>
+<main>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-copy">
+    <div class="kicker">Zarir Madon · Artist / Digital Creator</div>
+    <div>
+      <h1><span class="w h-pink">Change</span><span class="w">the</span><span class="w h-yellow">view.</span></h1>
+      <p class="hero-text">The Digital Perspective explores the space between art, photography, design and digital imagination — transforming familiar things into something unexpected.</p>
+      <a class="cta" href="#work">Explore the work <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
     </div>
+    <div class="kicker">01 — 06 / Contemporary visual experiments</div>
+  </div>
+  <div class="hero-art" aria-label="Abstract artwork">
+    <div class="art-one"></div><div class="art-two"></div>
+    <div class="art-label">Chromatic Geometry / 001</div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="glass-panel border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8 mt-20">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex flex-col text-center md:text-left">
-                <span class="text-lg font-bold font-mono text-white">THE DIGITAL PERSPECTIVE</span>
-                <span class="text-xs text-slate-400 mt-1">Contemporary Art & Visual Design Studio © 2026 Zarir Madon</span>
-            </div>
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Art beyond the ordinary <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg> <em>Digital perspectives</em> <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg> Abstract worlds <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg> <em>Visual experiments</em> <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg></span>
+    <span>Art beyond the ordinary <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg> <em>Digital perspectives</em> <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg> Abstract worlds <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg> <em>Visual experiments</em> <svg class="spark" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c1 4 4 7 8 8-4 1-7 4-8 8-1-4-4-7-8-8 4-1 7-4 8-8z"/></svg></span>
+  </div>
+</div>
 
-            <div class="flex gap-6 text-xs text-slate-400 font-mono">
-                <a href="#collections" class="hover:text-indigo-400 transition-colors">Collections</a>
-                <a href="#tiers" class="hover:text-indigo-400 transition-colors">Product Matrix</a>
-                <a href="#marketplaces" class="hover:text-indigo-400 transition-colors">Outlets</a>
-                <a href="#about" class="hover:text-indigo-400 transition-colors">Philosophy</a>
-            </div>
-        </div>
-    </footer>
+<section class="wrap" id="work">
+  <div class="sec-head reveal">
+    <h2>Selected<br><em>works.</em></h2>
+    <p>A collection of contemporary digital works, abstract compositions and visual experiments. Created to live on walls, screens and wherever curious eyes happen to find them.</p>
+  </div>
+  <div class="grid">
+    <article class="work reveal">
+      <div class="work-art w1"></div>
+      <div class="work-info">
+        <div><small>01 / Chromatic Geometry</small><h3>Fault <em>Line</em></h3></div>
+        <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></div>
+      </div>
+    </article>
+    <article class="work reveal">
+      <div class="work-art w2"></div>
+      <div class="work-info">
+        <div><small>02 / Digital Alchemy</small><h3>After<em>image</em></h3></div>
+        <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></div>
+      </div>
+    </article>
+    <article class="work reveal">
+      <div class="work-art w3"></div>
+      <div class="work-info">
+        <div><small>03 / Dream States</small><h3>Other <em>Weather</em></h3></div>
+        <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></div>
+      </div>
+    </article>
+    <article class="work reveal">
+      <div class="work-art w4"></div>
+      <div class="work-info">
+        <div><small>04 / Organic Machines</small><h3>System <em>/ Bloom</em></h3></div>
+        <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></div>
+      </div>
+    </article>
+  </div>
+</section>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Data Store for Artworks
-        const ARTWORKS = [
-            {
-                id: '1',
-                title: 'Organic Machine No. 04',
-                collection: 'Organic Machines',
-                filterTag: 'biomechanical',
-                desc: 'A surreal convergence of biological fiber structures and precision industrial mechanical line work.',
-                accentColor: '#6366f1',
-                type: 'svg-bio'
-            },
-            {
-                id: '2',
-                title: 'Chromatic Geometry VII',
-                collection: 'Chromatic Geometry',
-                filterTag: 'geometric',
-                desc: 'Bold vector geometric construct exploring high-contrast saturated color planes and spatial rhythm.',
-                accentColor: '#a855f7',
-                type: 'svg-geo'
-            },
-            {
-                id: '3',
-                title: 'Algorithmic Alchemy',
-                collection: 'Digital Alchemy',
-                filterTag: 'generative',
-                desc: 'Procedurally generated anisotropic visual study capturing complex flow dynamics in dark light space.',
-                accentColor: '#10b981',
-                type: 'svg-gen'
-            },
-            {
-                id: '4',
-                title: 'Aotearoa Deconstructed: Piha',
-                collection: 'Aotearoa Abstracted',
-                filterTag: 'abstract',
-                desc: 'Photographic abstraction of the rugged West Coast ironsands and atmospheric coastal mist.',
-                accentColor: '#f59e0b',
-                type: 'svg-nz'
-            },
-            {
-                id: '5',
-                title: 'Retro Synth Architecture',
-                collection: 'Retro Future',
-                filterTag: 'geometric',
-                desc: '1980s synthwave inspired architectural line study with radiant ultraviolet accent planes.',
-                accentColor: '#ec4899',
-                type: 'svg-geo'
-            },
-            {
-                id: '6',
-                title: 'Monochrome Monolith',
-                collection: 'Monochrome',
-                filterTag: 'biomechanical',
-                desc: 'High-contrast minimalist black-and-white tonal exploration of shadow, structural edge, and depth.',
-                accentColor: '#94a3b8',
-                type: 'svg-bio'
-            }
-        ];
+<section class="wrap" style="padding:0">
+  <div class="about reveal" id="about">
+    <div><div class="kicker" style="color:#8a8696">The idea</div><h2>See<br>things<br><em>again.</em></h2></div>
+    <div class="about-copy">
+      <p>The Digital Perspective is an evolving visual practice by <strong>Zarir Madon</strong> — where photography becomes abstraction, technology becomes a creative instrument, and ordinary subjects are pushed somewhere stranger.</p>
+      <p>The work moves freely between fine art, graphic design, surrealism and digital experimentation. There are no strict borders. Only interesting ones to cross.</p>
+      <div class="line"></div>
+      <div class="stat"><span>Based in</span><span>Aotearoa / New Zealand</span></div>
+      <div class="stat"><span>Practice</span><span>Art · Design · Photography</span></div>
+      <div class="stat"><span>Approach</span><span>Curious / Experimental</span></div>
+    </div>
+  </div>
+</section>
 
-        // SVG Visual Generator Functions to avoid missing external images
-        function generateSVGArt(type, color) {
-            if (type === 'svg-bio') {
-                return `
-                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
-                    <rect width="400" height="500" fill="#0b0f19"/>
-                    <circle cx="200" cy="250" r="140" fill="none" stroke="${color}" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.6"/>
-                    <path d="M 100 250 Q 200 100 300 250 T 100 250" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.8"/>
-                    <path d="M 150 150 C 250 200 250 300 150 350" fill="none" stroke="${color}" stroke-width="3"/>
-                    <line x1="200" y1="50" x2="200" y2="450" stroke="#334155" stroke-width="1" stroke-dasharray="2 4"/>
-                    <line x1="50" y1="250" x2="350" y2="250" stroke="#334155" stroke-width="1" stroke-dasharray="2 4"/>
-                    <circle cx="200" cy="250" r="40" fill="${color}" opacity="0.2"/>
-                    <circle cx="200" cy="250" r="8" fill="${color}"/>
-                </svg>`;
-            } else if (type === 'svg-geo') {
-                return `
-                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
-                    <rect width="400" height="500" fill="#0b0f19"/>
-                    <polygon points="200,80 340,380 60,380" fill="none" stroke="${color}" stroke-width="3"/>
-                    <polygon points="200,140 300,350 100,350" fill="${color}" opacity="0.15"/>
-                    <circle cx="200" cy="240" r="60" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
-                    <line x1="60" y1="380" x2="340" y2="80" stroke="${color}" stroke-width="1.5"/>
-                    <rect x="170" y="210" width="60" height="60" fill="none" stroke="#38bdf8" stroke-width="2" transform="rotate(45 200 240)"/>
-                </svg>`;
-            } else if (type === 'svg-gen') {
-                return `
-                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
-                    <rect width="400" height="500" fill="#0b0f19"/>
-                    <path d="M 50 100 Q 200 300 350 100 T 50 400" fill="none" stroke="${color}" stroke-width="2" opacity="0.8"/>
-                    <path d="M 50 150 Q 200 350 350 150 T 50 450" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.6"/>
-                    <path d="M 50 50 Q 200 250 350 50 T 50 350" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.4"/>
-                    <circle cx="200" cy="200" r="100" fill="none" stroke="${color}" stroke-width="1" stroke-dasharray="5 5"/>
-                </svg>`;
-            } else {
-                return `
-                <svg viewBox="0 0 400 500" class="w-full h-full rounded-lg">
-                    <rect width="400" height="500" fill="#0b0f19"/>
-                    <path d="M 0 350 L 120 220 L 220 300 L 400 150 L 400 500 L 0 500 Z" fill="${color}" opacity="0.2"/>
-                    <path d="M 0 380 L 160 280 L 280 340 L 400 200" fill="none" stroke="${color}" stroke-width="3"/>
-                    <circle cx="300" cy="120" r="35" fill="none" stroke="#f59e0b" stroke-width="2"/>
-                </svg>`;
-            }
-        }
+<section class="wrap" style="padding:0">
+  <div class="shop reveal" id="shop">
+    <div class="sec-head">
+      <h2>Take it<br><em>home.</em></h2>
+      <p>Art made for different kinds of collectors — from downloadable editions to statement pieces designed for serious walls.</p>
+    </div>
+    <div class="shop-grid">
+      <div class="shop-card sc1">
+        <div><h3>Digital Editions</h3><p>Instantly downloadable artworks, wallpapers and limited digital releases.</p></div>
+        <a href="#">Explore digital <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="shop-card sc2">
+        <div><h3>Fine Art Prints</h3><p>Museum-quality prints, limited editions and contemporary wall art.</p></div>
+        <a href="#">View prints <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="shop-card sc3">
+        <div><h3>Collector Works</h3><p>Large-format and unique works for collectors, interiors and creative spaces.</p></div>
+        <a href="#">For collectors <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Render Artwork Cards
-        function renderArtworks(filter = 'all') {
-            const grid = document.getElementById('artworks-grid');
-            grid.innerHTML = '';
+<section class="wrap contact reveal" id="contact">
+  <div class="kicker">Stay curious</div>
+  <h2>New work.<br>New <em>perspectives.</em></h2>
+  <a class="cta" href="mailto:hello@thedigitalperspective.art">Say hello <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+</section>
+</main>
 
-            const items = filter === 'all' 
-                ? ARTWORKS 
-                : ARTWORKS.filter(item => item.filterTag === filter);
+<footer class="wrap">
+  <div class="foot-top">
+    <div class="foot-logo">THE DIGITAL<br>PERSPECT<em>ive</em></div>
+    <small>© 2026 The Digital Perspective<br>Art · Design · Visual Experiments<br>Aotearoa / New Zealand</small>
+  </div>
+  <div class="socials">
+    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+    <a href="#" aria-label="Behance"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 7H3v10h5c2 0 3.3-1 3.3-2.8 0-1.2-.7-2-1.5-2.2.6-.3 1.1-.9 1.1-1.9C10.9 7.9 9.7 7 8 7zm-1 3.4V8.7h.9c.6 0 1 .3 1 .9s-.4.8-1 .8H7zm0 4.9v-2h1.1c.7 0 1.2.3 1.2 1s-.5 1-1.2 1H7zM21 12.5c0-2.3-1.4-4-3.6-4-2.3 0-3.8 1.7-3.8 3.9 0 2.2 1.5 3.9 3.9 3.9 1.8 0 3-1 3.4-2.2h-2c-.2.4-.7.6-1.3.6-.9 0-1.5-.5-1.6-1.4h5c0-.3 0-.6 0-.8zm-5-1c.2-.8.7-1.2 1.4-1.2.8 0 1.3.5 1.4 1.2h-2.8z"/></svg></a>
+    <a href="#" aria-label="Dribbble"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M5 8c4 1 9 1 13.5-1M3.5 13c5-1 9 0 13 4M9 3.5C12 7 13 12 12.5 20.5"/></svg></a>
+    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5v11h-3v-11h3zm.2-3a1.8 1.8 0 11-3.6 0 1.8 1.8 0 013.6 0zM20.5 19.5h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-.9 0-1.5.6-1.7 1.3-.1.2-.1.5-.1.8v5.8h-3v-11h3v1.5c.4-.7 1.2-1.6 2.9-1.6 2.1 0 3.6 1.4 3.6 4.3v6.8z"/></svg></a>
+  </div>
+</footer>
 
-            items.forEach(art => {
-                const card = document.createElement('div');
-                card.className = 'glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer flex flex-col justify-between';
-                card.onclick = () => openModal(art);
-
-                card.innerHTML = `
-                    <div class="relative h-72 bg-slate-950 p-4 flex items-center justify-center overflow-hidden">
-                        ${generateSVGArt(art.type, art.accentColor)}
-                        <span class="absolute top-4 right-4 text-[10px] font-mono px-2 py-1 rounded glass-panel text-slate-300">
-                            ${art.collection}
-                        </span>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-bold text-white mb-2">${art.title}</h4>
-                        <p class="text-xs text-slate-400 line-clamp-2 mb-4">${art.desc}</p>
-                        <div class="flex items-center justify-between text-xs font-mono text-indigo-400 pt-3 border-t border-white/5">
-                            <span>VIEW DETAILS</span>
-                            <span>→</span>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Filter Functionality
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.filter-btn').forEach(b => {
-                    b.classList.remove('bg-indigo-600', 'text-white');
-                    b.classList.add('glass-panel', 'text-slate-400');
-                });
-                e.target.classList.remove('glass-panel', 'text-slate-400');
-                e.target.classList.add('bg-indigo-600', 'text-white');
-
-                renderArtworks(e.target.getAttribute('data-filter'));
-            });
-        });
-
-        // Modal Functionality
-        const modal = document.getElementById('art-modal');
-        const modalClose = document.getElementById('modal-close');
-
-        function openModal(art) {
-            document.getElementById('modal-title').innerText = art.title;
-            document.getElementById('modal-collection').innerText = art.collection;
-            document.getElementById('modal-desc').innerText = art.desc;
-            document.getElementById('modal-img-container').innerHTML = generateSVGArt(art.type, art.accentColor);
-
-            const tiersContainer = document.getElementById('modal-tiers');
-            tiersContainer.innerHTML = `
-                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
-                    <span class="text-slate-300 font-mono">Level 1: Printable Digital Download</span>
-                    <span class="text-indigo-400 font-bold font-mono">$15 (Etsy)</span>
-                </div>
-                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
-                    <span class="text-slate-300 font-mono">Level 2: 60x90cm Canvas Print</span>
-                    <span class="text-indigo-400 font-bold font-mono">$140 (Etsy POD)</span>
-                </div>
-                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
-                    <span class="text-slate-300 font-mono">Level 3: Limited Fine Art Print (1/15)</span>
-                    <span class="text-indigo-400 font-bold font-mono">$450 (Saatchi)</span>
-                </div>
-                <div class="flex items-center justify-between p-2.5 rounded bg-white/5 text-xs">
-                    <span class="text-slate-300 font-mono">Level 4: Graphic Asset Pack</span>
-                    <span class="text-indigo-400 font-bold font-mono">$28 (Creative Market)</span>
-                </div>
-            `;
-
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        modalClose.addEventListener('click', () => {
-            modal.classList.add('opacity-0', 'pointer-events-none');
-        });
-
-        // Hero Generative Canvas Animation
-        const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        let particles = [];
-        for (let i = 0; i < 45; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.8,
-                vy: (Math.random() - 0.5) * 0.8,
-                radius: Math.random() * 2 + 1
-            });
-        }
-
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-
-            ctx.fillStyle = '#6366f1';
-            ctx.strokeStyle = 'rgba(99, 102, 241, 0.15)';
-
-            for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0 || p.x > width) p.vx *= -1;
-                if (p.y < 0 || p.y > height) p.vy *= -1;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    let p2 = particles[j];
-                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 180) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateCanvas);
-        }
-        animateCanvas();
-
-        // Mobile Nav toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Initial Page Setup
-        renderArtworks('all');
-    </script>
+<script>
+const io=new IntersectionObserver((e)=>{e.forEach((x)=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el)=>io.observe(el));
+</script>
 </body>
 </html>
