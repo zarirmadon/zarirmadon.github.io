@@ -39,6 +39,16 @@ body{background:linear-gradient(135deg,#f5efff 0%,#e7f4ff 52%,#f5f0ff 100%)}
 .closing{background:#171326}.closing-head span{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;color:#ff86ba}.closing-links a:hover{color:var(--yellow)}
 .overlay{background:#100c27c9}.sheet{background:#fffdf8;box-shadow:0 35px 110px #08041b88}.sheet-head{background:linear-gradient(115deg,#f0e7ff,#fce6f0)}.sheet-head h3{letter-spacing:-.05em}.close{background:#12131a}.close:hover{background:var(--pink)}.download-panel{background:#f3edff}.download-panel .repo-download{background:linear-gradient(100deg,var(--pink),var(--violet),var(--blue));color:white}.sheet-foot a{color:var(--pink)}
 ::selection{background:var(--pink);color:white}
+/* Consistent three-column catalogue: descriptions stay within their cards. */
+.projects{grid-template-columns:repeat(3,minmax(0,1fr));gap:42px 24px}
+.projects>.project{grid-column:auto;display:block;margin-bottom:0;min-width:0}
+.projects>.project .project-art{height:clamp(190px,20vw,290px);border-radius:24px}
+.projects>.project .project-info{padding:20px 3px 3px}
+.projects>.project h3{font-size:clamp(20px,1.8vw,30px);line-height:1.12;margin:16px 0 12px;letter-spacing:-.055em}
+.projects>.project p{font-size:14px;line-height:1.55;max-width:100%;overflow-wrap:anywhere}
+.projects>.project .art-monogram{font-size:clamp(90px,13vw,220px)}
+@media(max-width:1000px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.projects{grid-template-columns:1fr;gap:38px}.projects>.project .project-art{height:260px}.projects>.project h3{font-size:27px}}
 </style></head><body>
 <nav class="topbar" aria-label="Main navigation"><a class="logo" href="#top">fluffy<i>coding.</i></a><div class="toplinks"><a href="#collection">THE COLLECTION</a><a href="https://zarirmadon.com" target="_blank" rel="noopener">PHOTOGRAPHY ↗</a><a href="https://zmcreative.art" target="_blank" rel="noopener">ZM CREATIVE ↗</a></div><a class="nav-contact" href="https://github.com/zarirmadon" target="_blank" rel="noopener">GITHUB ↗</a></nav>
 <header class="hero" id="top"><span class="hero-edge">INDEPENDENT CREATIVE EXPERIMENTS / 2026</span><div class="hero-inner"><span class="eyebrow">CREATIVE CODE BY ZARIR MADON — 001</span><h1 class="hero-title"><span>fluffy</span><span class="second">coding.</span></h1><div class="hero-bottom"><p class="hero-copy">A curious collection of tools for making, shaping and reimagining images. Built for artists, by an artist.</p><a href="#collection" class="round-arrow" aria-label="Explore projects">↓</a></div></div></header>
@@ -149,8 +159,7 @@ body{background:linear-gradient(135deg,#f5efff 0%,#e7f4ff 52%,#f5f0ff 100%)}
       if (!items.length) { showStatus('No matching project folders found.'); return; }
       items.forEach((item,index)=>{
         const card=document.createElement('article');
-        const featured=index<2;
-        card.className='project '+(featured?'feature':'compact');
+        card.className='project compact';
         card.tabIndex=0;
         card.setAttribute('role','button');
         const preview=item.files.find(f=>/^preview\.(png|jpe?g|webp)$/i.test(f.name));
