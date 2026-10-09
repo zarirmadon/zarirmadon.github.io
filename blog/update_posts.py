@@ -6,6 +6,8 @@ import json
 import re
 import sys
 import urllib.request
+import urllib.error
+import time
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from html.parser import HTMLParser
@@ -43,9 +45,36 @@ def read_text(element, name):
     return (node.text or '').strip() if node is not None else ''
 
 def main():
-    req = urllib.request.Request(FEED, headers={'User-Agent':'LightLogicLunacyIndex/1.0 (+https://github.com/zarirmadon)', 'Accept':'application/rss+xml, application/xml, text/xml'})
-    with urllib.request.urlopen(req, timeout=40) as response:
-        xml = response.read(8_000_000)
+    # Ask for the public RSS feed with conventional browser-compatible headers.
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'Accept': 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Cache-Control': 'no-cache',
+    }
+    req = urllib.request.Request(FEED, headers=headers)
+    xml = None
+    for attempt in range(1, 4):
+        try:
+            with urllib.request.urlopen(req, timeout=40) as response:
+                xml = response.read(8_000_000)
+            break
+        except urllib.error.HTTPError as exc:
+            print(f'RSS request attempt {attempt}: HTTP {exc.code} ({exc.reason})', file=sys.stderr)
+            if exc.code in (401, 403):
+                raise RuntimeError(
+                    'Substack refused public RSS access from this GitHub runner (HTTP '
+                    f'{exc.code}). Browser headers were supplied. Check the feed at '
+                    f'{FEED} in a normal browser; if that works, GitHub runner IP blocking '
+                    'may be the cause. Existing posts.json is unchanged.'
+                ) from exc
+            if attempt == 3 or exc.code not in (429, 500, 502, 503, 504):
+                raise
+            time.sleep(2 * attempt)
+        except urllib.error.URLError:
+            if attempt == 3:
+                raise
+            time.sleep(2 * attempt)
     root = ET.fromstring(xml)
     channel = root.find('channel')
     if channel is None:
