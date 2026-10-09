@@ -39,16 +39,24 @@ body{background:linear-gradient(135deg,#f5efff 0%,#e7f4ff 52%,#f5f0ff 100%)}
 .closing{background:#171326}.closing-head span{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;color:#ff86ba}.closing-links a:hover{color:var(--yellow)}
 .overlay{background:#100c27c9}.sheet{background:#fffdf8;box-shadow:0 35px 110px #08041b88}.sheet-head{background:linear-gradient(115deg,#f0e7ff,#fce6f0)}.sheet-head h3{letter-spacing:-.05em}.close{background:#12131a}.close:hover{background:var(--pink)}.download-panel{background:#f3edff}.download-panel .repo-download{background:linear-gradient(100deg,var(--pink),var(--violet),var(--blue));color:white}.sheet-foot a{color:var(--pink)}
 ::selection{background:var(--pink);color:white}
-/* Consistent three-column catalogue: descriptions stay within their cards. */
-.projects{grid-template-columns:repeat(3,minmax(0,1fr));gap:42px 24px}
-.projects>.project{grid-column:auto;display:block;margin-bottom:0;min-width:0}
-.projects>.project .project-art{height:clamp(190px,20vw,290px);border-radius:24px}
-.projects>.project .project-info{padding:20px 3px 3px}
-.projects>.project h3{font-size:clamp(20px,1.8vw,30px);line-height:1.12;margin:16px 0 12px;letter-spacing:-.055em}
-.projects>.project p{font-size:14px;line-height:1.55;max-width:100%;overflow-wrap:anywhere}
-.projects>.project .art-monogram{font-size:clamp(90px,13vw,220px)}
-@media(max-width:1000px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.projects{grid-template-columns:1fr;gap:38px}.projects>.project .project-art{height:260px}.projects>.project h3{font-size:27px}}
+/* Catalogue — fixed compact cards, never editorial feature panels. */
+.projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 22px;align-items:stretch}
+.projects > article.project,
+.projects > article.project:first-child,
+.projects > article.project:nth-child(2){grid-column:auto;display:flex;flex-direction:column;gap:0;margin:0;min-width:0;width:100%}
+.projects > article.project .project-art{order:0;height:220px;min-height:0;border-radius:23px;flex:none}
+.projects > article.project .project-info{order:1;flex:1;display:flex;flex-direction:column;padding:17px 3px 4px;min-width:0}
+.projects > article.project h3{font:800 clamp(19px,1.55vw,25px)/1.2 'Unbounded',sans-serif;letter-spacing:-.045em;margin:12px 0 10px;overflow-wrap:break-word;word-break:normal;text-transform:none}
+.projects > article.project p{font-size:13px;line-height:1.5;max-width:none;margin:0;color:#555867;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+.projects > article.project .project-bottom{margin-top:auto;padding-top:13px;margin-bottom:0;gap:8px;font-size:10px}
+.projects > article.project .project-bottom strong{font-size:10px}
+.projects > article.project .art-monogram{font-size:clamp(95px,10vw,160px)}
+.projects > article.project .project-meta{font-size:9px;letter-spacing:.07em;gap:8px}
+.collection h2{font-size:clamp(35px,4.1vw,66px);letter-spacing:-.06em}
+.intro h2{font-size:clamp(36px,4vw,65px);letter-spacing:-.055em}
+.closing-head{font-size:clamp(44px,6vw,92px)}
+@media(max-width:1050px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.projects{grid-template-columns:1fr;gap:25px}.projects > article.project .project-art{height:205px}.projects > article.project h3{font-size:22px}.collection h2{font-size:39px}.intro h2{font-size:42px}}
 </style></head><body>
 <nav class="topbar" aria-label="Main navigation"><a class="logo" href="#top">fluffy<i>coding.</i></a><div class="toplinks"><a href="#collection">THE COLLECTION</a><a href="https://zarirmadon.com" target="_blank" rel="noopener">PHOTOGRAPHY ↗</a><a href="https://zmcreative.art" target="_blank" rel="noopener">ZM CREATIVE ↗</a></div><a class="nav-contact" href="https://github.com/zarirmadon" target="_blank" rel="noopener">GITHUB ↗</a></nav>
 <header class="hero" id="top"><span class="hero-edge">INDEPENDENT CREATIVE EXPERIMENTS / 2026</span><div class="hero-inner"><span class="eyebrow">CREATIVE CODE BY ZARIR MADON — 001</span><h1 class="hero-title"><span>fluffy</span><span class="second">coding.</span></h1><div class="hero-bottom"><p class="hero-copy">A curious collection of tools for making, shaping and reimagining images. Built for artists, by an artist.</p><a href="#collection" class="round-arrow" aria-label="Explore projects">↓</a></div></div></header>
